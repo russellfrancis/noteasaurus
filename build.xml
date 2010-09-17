@@ -511,7 +511,7 @@
     </target>
     
     <!-- =========================================================================================================== -->
-    <target name="clean" depends="install-ivy">
+    <target name="clean" depends="ivy-settings">
         <parallel>
             <delete dir="${lib.runtime.dir}"/>
             <delete dir="${lib.testtime.dir}"/>
@@ -533,7 +533,7 @@
     <!-- =========================================================================================================== -->
 
     <!-- =========================================================================================================== -->
-    <target name="dependency-report" depends="install-ivy,resolve-all">
+    <target name="dependency-report" depends="ivy-settings,resolve-all">
         <ivy:report conf="runtime" todir="${dist.dir}/reports/dependency"/>
         <ivy:report conf="buildtime" todir="${dist.dir}/reports/dependency"/>
         <ivy:report conf="testtime" todir="${dist.dir}/reports/dependency"/>
