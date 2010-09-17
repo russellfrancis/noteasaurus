@@ -9,7 +9,7 @@
 
     <property name="test.filepattern" value="*"/>
 
-    <property name="ivy.version" value="2.0.0"/>
+    <property name="ivy.version" value="2.2.0-rc1"/>
     <property name="derby.version" value="10.5.3.0"/>
     <property name="winstone.version" value="0.9.10"/>
     <property name="jsdoctoolkit.version" value="2.0.2"/>
