@@ -37,10 +37,10 @@
         <dependency org="apache-tomcat" name="catalina-ant" rev="6.0.18" conf="deploytime"/>
 
         <!-- These are libraries needed for testing noteasaurus -->
-        <dependency org="junit" name="junit" rev="4.5" conf="testtime"/>
-        <dependency org="easymock" name="easymock" rev="2.4" conf="testtime"/>
-        <dependency org="findbugs" name="findbugs" rev="1.3.7" conf="testtime"/>
-        <dependency org="cobertura" name="cobertura" rev="1.9" conf="testtime"/>
+        <dependency org="junit" name="junit" rev="4.+" conf="testtime"/>
+        <dependency org="easymock" name="easymock" rev="2.+" conf="testtime"/>
+        <dependency org="findbugs" name="findbugs" rev="1.+" conf="testtime"/>
+        <dependency org="cobertura" name="cobertura" rev="1.+" conf="testtime"/>
         <dependency org="winstone" name="winstone" rev="0.9.10" conf="testtime"/>
         <dependency org="selenium" name="selenium-java-client-driver" rev="1.0-beta-1" conf="testtime"/>
         <dependency org="selenium" name="selenium-server" rev="1.0-beta-1" conf="testtime"/>
