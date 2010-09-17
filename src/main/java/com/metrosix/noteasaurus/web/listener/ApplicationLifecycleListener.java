@@ -51,8 +51,7 @@ import org.apache.velocity.app.VelocityEngine;
  * This listener is run when the application is started up and also when it is stopped.  It performs
  * necessary setup of resources which are used by the application.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ApplicationLifecycleListener.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class ApplicationLifecycleListener implements ServletContextListener {
     
@@ -63,6 +62,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
      *
      * @param servletContextEvent The event which caused this method to be invoked.
      */
+    @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
             DefaultPicoContainer pico = startApplicationServices();
@@ -77,6 +77,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
      *
      * @param servletContextEvent The event which caused this method to be invoked.
      */
+    @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         try {
             InitialContext initialContext = newInitialContext();

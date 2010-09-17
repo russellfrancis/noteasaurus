@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.rpc.impl.json;
 
-import com.metrosix.noteasaurus.rpc.impl.json.JSONResponseFormatter;
 import com.metrosix.noteasaurus.rpc.ProcedureCallStatus;
 import com.metrosix.noteasaurus.rpc.ProcedureCallStatusCode;
 import com.metrosix.noteasaurus.rpc.proc.impl.response.ProcedureCallResponse;
@@ -10,8 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONResponseFormatterTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONResponseFormatterTest {
 

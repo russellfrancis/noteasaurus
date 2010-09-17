@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.config.impl;
 
-import com.metrosix.noteasaurus.config.impl.NonVolatileApplicationConfiguration;
 import com.metrosix.noteasaurus.config.ApplicationConfigurationParameter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,9 +11,7 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: NonVolatileApplicationConfigurationTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class NonVolatileApplicationConfigurationTest {
 

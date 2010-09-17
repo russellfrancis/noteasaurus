@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
  * be retrieved from the PicoContainer and a hibernate session will be created and closed around the execution of that
  * object.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HibernateWrappedExecutableJob.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HibernateWrappedExecutableJob implements PersistenceWrappedExecutableJob {
 

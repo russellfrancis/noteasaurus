@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Implement a JobManager which can be used to run periodic tasks within our application.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultJobManager.java -1   $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultJobManager implements JobManager, Startable {
 

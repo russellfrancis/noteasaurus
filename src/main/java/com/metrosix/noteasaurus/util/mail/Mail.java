@@ -17,8 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Adam M. Dutko (dutko.adam@gmail.com)
- * @version $Id: Mail.java 247 2010-08-07 23:15:10Z adam $
+ * @author Adam M. Dutko (adam@metro-six.com)
  */
 abstract public class Mail {
     static public final int MAIL_DISABLED = -2;

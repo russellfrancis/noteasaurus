@@ -13,8 +13,7 @@ import javax.servlet.ServletResponse;
  * to the application beyond the filter.  It will commit any pending work when leaving the filter and handle any
  * cases where the transaction needs to be rolled back or cleaned up due to failure.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HibernateSessionFilter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HibernateSessionFilter extends AbstractFilter {
 
@@ -26,6 +25,7 @@ public class HibernateSessionFilter extends AbstractFilter {
      * @param response The ServletResponse for this request.
      * @param chain The filter chain.
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
     throws IOException, ServletException
     {

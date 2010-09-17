@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.web.listener;
 
-import com.metrosix.noteasaurus.web.listener.ApplicationLifecycleListener;
 import com.metrosix.noteasaurus.config.ApplicationConfiguration;
 import com.metrosix.noteasaurus.config.impl.DefaultApplicationConfiguration;
 import com.metrosix.noteasaurus.config.impl.NonVolatileApplicationConfiguration;
@@ -56,8 +55,7 @@ import static org.easymock.classextension.EasyMock.*;
 import static org.junit.Assert.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ApplicationLifecycleListenerTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class ApplicationLifecycleListenerTest {
     

@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.web.filter;
 
-import com.metrosix.noteasaurus.web.filter.HttpSessionFilter;
 import com.metrosix.noteasaurus.web.HttpSessionService;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,7 @@ import static org.easymock.classextension.EasyMock.*;
 import static org.junit.Assert.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HttpSessionFilterTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HttpSessionFilterTest {
     @Test

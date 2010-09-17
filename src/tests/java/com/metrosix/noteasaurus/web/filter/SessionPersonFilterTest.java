@@ -1,7 +1,5 @@
 package com.metrosix.noteasaurus.web.filter;
 
-import com.metrosix.noteasaurus.web.filter.SessionPersonFilter;
-import com.metrosix.noteasaurus.web.filter.AbstractFilter;
 import com.metrosix.noteasaurus.database.PersistenceManager;
 import com.metrosix.noteasaurus.domain.Person;
 import com.metrosix.noteasaurus.security.SecurityPrincipalService;
@@ -14,12 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.junit.Test;
 import org.picocontainer.PicoContainer;
-import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis
- * @version $Id: SessionPersonFilterTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SessionPersonFilterTest {
 

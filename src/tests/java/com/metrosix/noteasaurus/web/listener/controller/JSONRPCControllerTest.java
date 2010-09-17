@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.web.listener.controller;
 
-import com.metrosix.noteasaurus.web.listener.controller.JSONRPCController;
 import com.metrosix.noteasaurus.rpc.RequestExecutor;
 import com.metrosix.noteasaurus.rpc.RequestParser;
 import com.metrosix.noteasaurus.rpc.ResponseFormatter;
@@ -12,8 +11,6 @@ import com.metrosix.noteasaurus.security.SecurityPrincipalService;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
@@ -27,8 +24,7 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONRPCControllerTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONRPCControllerTest {
 

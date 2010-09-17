@@ -5,8 +5,7 @@ import com.metrosix.noteasaurus.rpc.proc.Procedure;
 import com.metrosix.noteasaurus.security.SecurityPrincipal;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ProcedureExecutionDeniedResponse.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class ProcedureExecutionDeniedResponse extends FailedProcedureCallResponse {
     public ProcedureExecutionDeniedResponse(SecurityPrincipal principal, Procedure procedure) {

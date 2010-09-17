@@ -1,8 +1,5 @@
 package com.metrosix.noteasaurus.domain;
 
-import com.metrosix.noteasaurus.domain.Corkboard;
-import com.metrosix.noteasaurus.domain.Note;
-import com.metrosix.noteasaurus.domain.Person;
 import com.metrosix.noteasaurus.database.PersistenceManager;
 import com.metrosix.noteasaurus.util.SecureUtility;
 import java.util.Arrays;
@@ -16,8 +13,7 @@ import static org.easymock.classextension.EasyMock.*;
 import java.util.HashSet;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: PersonTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class PersonTest {
     

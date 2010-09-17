@@ -6,8 +6,7 @@ import com.metrosix.noteasaurus.hibernate.Executable;
  * Define an interface which can be used to manage periodic jobs which should be run for system maintenance or other
  * reasons.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JobManager.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface JobManager {
 

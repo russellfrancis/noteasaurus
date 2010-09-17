@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.schedule.impl.job;
 
-import com.metrosix.noteasaurus.schedule.impl.job.HibernateWrappedExecutableJob;
 import com.metrosix.noteasaurus.hibernate.HibernateSessionWrapper;
 import com.metrosix.noteasaurus.schedule.PersistenceWrappedExecutableJob;
 import com.metrosix.noteasaurus.schedule.impl.executable.RemoveExpiredPersonsExecutable;
@@ -13,8 +12,7 @@ import static org.easymock.classextension.EasyMock.*;
 import static org.junit.Assert.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HibernateWrappedExecutableJobTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HibernateWrappedExecutableJobTest {
     @Test

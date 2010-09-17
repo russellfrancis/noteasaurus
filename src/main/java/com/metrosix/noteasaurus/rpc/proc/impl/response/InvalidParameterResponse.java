@@ -5,8 +5,7 @@ import com.metrosix.noteasaurus.rpc.proc.Argument;
 import com.metrosix.noteasaurus.rpc.proc.Procedure;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: InvalidParameterResponse.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class InvalidParameterResponse extends FailedProcedureCallResponse {
     public InvalidParameterResponse(Procedure procedure, Argument parameter) {

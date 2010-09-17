@@ -11,8 +11,7 @@ import org.quartz.JobExecutionException;
  * DELEGATE_CLASS variable. PicoContainer will be consulted for an instance of this class and that instance will be
  * executed with a persistence session wrapped around it.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: PersistenceWrappedExecutableJob.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface PersistenceWrappedExecutableJob extends Job {
     static public final String DELEGATE_CLASS = "delegateClass";
@@ -23,5 +22,6 @@ public interface PersistenceWrappedExecutableJob extends Job {
      * @param context The JobExecutionContext which must contain a JobDataMap which has an entry for DELEGATE_CLASS.
      * This should reference a Class instance of the Executable which should be wrapped and then executed.
      */
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException;
 }

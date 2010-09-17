@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.database.impl;
 
-import com.metrosix.noteasaurus.database.impl.DefaultPersistenceManager;
 import com.metrosix.noteasaurus.config.ApplicationConfiguration;
 import com.metrosix.noteasaurus.config.impl.NonVolatileApplicationConfiguration;
 import com.metrosix.noteasaurus.database.ConnectionManager;
@@ -15,8 +14,7 @@ import static org.easymock.classextension.EasyMock.*;
 
 /**
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultPersistenceManagerTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultPersistenceManagerTest {
 

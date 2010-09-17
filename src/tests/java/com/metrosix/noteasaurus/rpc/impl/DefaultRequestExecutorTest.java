@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.rpc.impl;
 
-import com.metrosix.noteasaurus.rpc.impl.DefaultRequestExecutor;
 import com.metrosix.noteasaurus.rpc.proc.impl.request.ProcedureCallRequest;
 import com.metrosix.noteasaurus.rpc.proc.impl.response.ProcedureCallResponse;
 import com.metrosix.noteasaurus.security.SecurityPrincipal;
@@ -9,10 +8,9 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultRequestExecutorTest {
-
     @Test
     public void testExecute() {
         SecurityPrincipal principal = createStrictMock(SecurityPrincipal.class);

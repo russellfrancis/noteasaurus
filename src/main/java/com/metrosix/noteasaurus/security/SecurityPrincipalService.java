@@ -3,8 +3,7 @@ package com.metrosix.noteasaurus.security;
 import com.metrosix.noteasaurus.database.PersistenceManager;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SecurityPrincipalService.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SecurityPrincipalService {
     static private final ThreadLocal securityPrincipal = new ThreadLocal() {
