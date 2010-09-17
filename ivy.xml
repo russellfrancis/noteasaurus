@@ -29,7 +29,7 @@
             
         <!-- These are libraries needed for compilation -->
         <dependency org="j2ee" name="servlet-api" rev="2.4" conf="buildtime"/>
-        <dependency org="yuicompressor" name="yuicompressor-anttask" rev="1.1" conf="buildtime"/>
+        <dependency org="m6" name="yui-compressor-ant-task" rev="1.+" conf="buildtime"/>
         <dependency org="jsdoctoolkit" name="jsdoctoolkit-anttask" rev="0.4" conf="buildtime"/>
         <dependency org="ant-contrib" name="ant-contrib" rev="0.6" conf="buildtime"/>
 

@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Map;
@@ -26,7 +25,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.dialect.Dialect;
-import org.hibernate.dialect.DialectFactory;
+import org.hibernate.dialect.resolver.DialectFactory;
 import org.hibernate.metadata.ClassMetadata;
 
 /**
@@ -135,13 +134,9 @@ public class DefaultPersistenceManager implements PersistenceManager {
             Properties props = getHibernateProperties();
 
             Dialect dialect;
-            DatabaseMetaData dbmd;
             Connection connection = getConnectionManager().getConnection();
             try {
-                dbmd = connection.getMetaData();
-                dialect = DialectFactory.determineDialect(
-                        dbmd.getDatabaseProductName(),
-                        dbmd.getDatabaseMajorVersion());
+                dialect = DialectFactory.buildDialect(new Properties(), connection);
             } finally {
                 connection.close();
             }

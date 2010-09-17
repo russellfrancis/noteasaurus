@@ -10,6 +10,9 @@
     <property name="test.filepattern" value="*"/>
 
     <property name="ivy.version" value="2.2.0-rc1"/>
+    <property name="ivy.settings.dir" value="settings"/>
+    <property name="ivy.settings.file" value="ivysettings.xml"/>
+
     <property name="derby.version" value="10.5.3.0"/>
     <property name="winstone.version" value="0.9.10"/>
     <property name="jsdoctoolkit.version" value="2.0.2"/>
@@ -43,11 +46,11 @@
     <property name="src.dir" value="src"/>
     <property name="src.main.dir" value="${src.dir}/main"/>
     <property name="src.main.java.dir" value="${src.main.dir}/java"/>
-    <property name="src.main.resources.dir" value="${src.main.dir}/resources"/>
+    <property name="src.main.resources.dir" value="${src.main.java.dir}"/>
     <property name="src.tests.dir" value="${src.dir}/tests"/>
     <property name="src.tests.java.dir" value="${src.tests.dir}/java"/>
     <property name="src.selenium-tests.java.dir" value="${src.tests.dir}/selenium"/>
-    <property name="src.tests.resources.dir" value="${src.tests.dir}/resources"/>
+    <property name="src.tests.resources.dir" value="${src.tests.java.dir}"/>
     
     <property name="dist.dir" value="dist"/>
     <property name="docs.dir" value="${dist.dir}/docs"/>
@@ -310,6 +313,7 @@
             <copy todir="${stage.war.dir}/WEB-INF/classes">
                 <fileset dir="${src.main.resources.dir}">
                     <include name="**/*"/>
+                    <exclude name="**/*.java"/>
                 </fileset>
                 <filterset>
                     <filter token="DB_DRIVER" value="${db.driver}"/>
@@ -405,6 +409,7 @@
         <copy todir="${build.tests.java.dir}">
             <fileset dir="${src.tests.resources.dir}">
                 <include name="**/*"/>
+                <exclude name="**/*.java"/>
             </fileset>
         </copy>
     </target>
@@ -432,6 +437,7 @@
         <copy todir="${build.tests.java.dir}">
             <fileset dir="${src.tests.resources.dir}">
                 <include name="**/*"/>
+                <exclude name="**/*.java"/>
             </fileset>
         </copy>
     </target>
@@ -473,31 +479,31 @@
     </target>
     
     <!-- =========================================================================================================== -->
-    <target name="resolve-runtime" depends="install-ivy" unless="runtime.resolved">
+    <target name="resolve-runtime" depends="ivy-settings" unless="runtime.resolved">
         <ivy:retrieve pattern="${lib.runtime.dir}/[artifact]-[revision].[ext]" conf="runtime"/>
         <property name="runtime.resolved" value="true"/>
     </target>
     
     <!-- =========================================================================================================== -->
-    <target name="resolve-buildtime" depends="install-ivy" unless="buildtime.resolved">
+    <target name="resolve-buildtime" depends="ivy-settings" unless="buildtime.resolved">
         <ivy:retrieve pattern="${lib.buildtime.dir}/[artifact]-[revision].[ext]" conf="buildtime"/>
         <property name="buildtime.resolved" value="true"/>
     </target>
     
     <!-- =========================================================================================================== -->
-    <target name="resolve-testtime" depends="install-ivy" unless="testtime.resolved">
+    <target name="resolve-testtime" depends="ivy-settings" unless="testtime.resolved">
         <ivy:retrieve pattern="${lib.testtime.dir}/[artifact]-[revision].[ext]" conf="testtime"/>
         <property name="testtime.resolved" value="true"/>
     </target>
 
     <!-- =========================================================================================================== -->
-    <target name="resolve-deploytime" depends="install-ivy" unless="deploytime.resolved">
+    <target name="resolve-deploytime" depends="ivy-settings" unless="deploytime.resolved">
         <ivy:retrieve pattern="${lib.deploytime.dir}/[artifact]-[revision].[ext]" conf="deploytime"/>
         <property name="deploytime.resolved" value="true"/>
     </target>
 
     <!-- =========================================================================================================== -->
-    <target name="clean-all" depends="install-ivy,clean">
+    <target name="clean-all" depends="ivy-settings,clean">
         <ivy:cleancache/>
         <parallel>
             <delete dir="${lib.dir}"/>
@@ -1085,6 +1091,13 @@
     </target>
 
     <!-- =========================================================================================================== -->
+    <target name="ivy-settings" depends="install-ivy" unless="resolve.no">
+        <fail unless="ivy.settings.dir"/>
+        <fail unless="ivy.settings.file"/>
+        <ivy:settings file="${ivy.settings.dir}/${ivy.settings.file}"/>
+    </target>
+
+    <!-- =========================================================================================================== -->
     <target name="install-ant-contrib" depends="resolve-buildtime" unless="ant-contrib.installed">
         <taskdef resource="net/sf/antcontrib/antcontrib.properties">
             <classpath>
@@ -1120,6 +1133,7 @@
         <path id="yuicompressor.path">
             <fileset dir="${lib.buildtime.dir}">
                 <include name="yuicompressor-*.jar"/>
+                <include name="yui-compressor-*.jar"/>
             </fileset>
         </path>
         <taskdef name="yuicompressor" classname="com.metrosix.yuicompressor.anttask.YuiCompressorTask"
