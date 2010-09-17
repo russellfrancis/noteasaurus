@@ -1,0 +1,1 @@
+var ICommand = new ideasaurus.Interface( 'ICommand' , ['execute'] );

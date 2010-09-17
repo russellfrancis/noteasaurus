@@ -1,0 +1,18 @@
+## #####################################################################################
+##
+## A simple velocity template for constructing the registration email.
+##
+## Variables:
+##    appName - Should be the application name Noteasaurus probably.
+##    registrationUrl - The url which the person must follow to verify their account.
+##
+## #####################################################################################
+Hello,
+
+Your registration of a $appName account is almost complete!  To finish
+the registration process, you only need to follow the link provided below.
+You will then be able to leave notes for yourself on the internet. Thanks
+for taking the time to signup for an account and I hope you enjoy using
+$appName !
+
+Follow Me: $registrationUrl

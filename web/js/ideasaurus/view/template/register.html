@@ -1,0 +1,48 @@
+<div id="register" class="note-box">
+    <h1>Register</h1>
+	<div id="register-entry">
+	    <p class="error"></p>
+	    <p class="message"></p>
+	    <form id="register-form">
+	        <table>
+	            <tr>
+	                <td align="right"><label for="email" title="Your email address">Email</label></td>
+	                <td>
+	                    <input id="email" name="email" type="text" title="Your email address" maxlength="256"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td align="right"><label for="password" title="The password associated with your account.">Password</label></td>
+	                <td>
+	                    <input id="password" name="password" type="password" maxlength="32" title="The password associated with your account."/>
+	                </td>
+	            </tr>
+	            
+	            <tr>
+                    <td>&nbsp;</td>
+	                <td>
+	                    <a href="javascript:void(0)" id="register-submit" class="button">Register</a>
+	                </td>
+	            </tr>
+	        </table>
+	    </form>
+
+        <div>
+            <p>	By registering you are accepting the Noteasaurus <a target="_blank" href="/terms.html">terms &amp; conditions</a>.</p>
+        </div>
+    </div>
+    
+    <div id="register-success">
+        <h2>Thanks for registering!</h2>
+    	<p>An email was sent to <span style="font-weight:bold;" id="email-destination"></span> that 
+    		contains a link back to this site. Just click 
+    		on that link and your registration will be complete!<p>
+    	<p>If you don't recieve an email, make sure that the email address you see above is correct.
+			You can also check your spam box in case we got spammed :-(. If you still don't recieve an
+			email, just <a href="mailto:notes.ideasaur.us@gmail.com ">contact us</a>.</p> 
+    </div>
+    
+    <div id="nav-strip">
+		<a href="javascript:void(0);" id="landing-page-link">Login</a>
+   	</div>
+</div>

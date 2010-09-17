@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="noteasaurus" default="usage" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:tomcat="antlib:org.apache.catalina.ant">
+    <property file="build.properties"/>
+
+    <property name="project.name" value="noteasaurus"/>
+    <property name="project.version" value="dev"/>
+    <property name="project.conf.httpPort" value="8080"/>
+    <property name="project.conf.controlPort" value="8090"/>
+
+    <property name="test.filepattern" value="*"/>
+
+    <property name="ivy.version" value="2.0.0"/>
+    <property name="derby.version" value="10.5.3.0"/>
+    <property name="winstone.version" value="0.9.10"/>
+    <property name="jsdoctoolkit.version" value="2.0.2"/>
+    <property name="selenium.version" value="1.0-beta-1"/>
+
+    <property name="selenium.browser.url" value="http://127.0.0.1:8080/"/>
+    <property name="selenium.browser.command" value="*firefox /usr/lib/firefox-3.0.5/firefox"/>
+    <property name="selenium.server.host" value="127.0.0.1"/>
+    <property name="selenium.server.port" value="4444"/>
+    
+    <property name="compile.debug" value="true"/>
+    <property name="compile.deprecation" value="false"/>
+    <property name="compile.optimize" value="false"/>
+    <property name="compile.target" value="1.5"/>
+    <property name="compile.source" value="1.5"/>
+
+    <property name="tmp.dir" value="tmp"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="build.main.dir" value="${build.dir}/main"/>
+    <property name="build.main.java.dir" value="${build.main.dir}/java"/>
+    <property name="build.main.cobertura.dir" value="${build.main.dir}/cobertura"/>
+    <property name="build.tests.dir" value="${build.dir}/tests"/>
+    <property name="build.selenium-tests.java.dir" value="${build.tests.dir}/selenium-tests"/>
+    <property name="build.tests.java.dir" value="${build.tests.dir}/java"/>
+    
+    <property name="stage.dir" value="stage"/>
+    <property name="stage.war.dir" value="${stage.dir}/war"/>
+    <property name="stage.selenium.war.dir" value="${stage.dir}/selenium-war"/>
+    
+    <property name="src.dir" value="src"/>
+    <property name="src.main.dir" value="${src.dir}/main"/>
+    <property name="src.main.java.dir" value="${src.main.dir}/java"/>
+    <property name="src.main.resources.dir" value="${src.main.dir}/resources"/>
+    <property name="src.tests.dir" value="${src.dir}/tests"/>
+    <property name="src.tests.java.dir" value="${src.tests.dir}/java"/>
+    <property name="src.selenium-tests.java.dir" value="${src.tests.dir}/selenium"/>
+    <property name="src.tests.resources.dir" value="${src.tests.dir}/resources"/>
+    
+    <property name="dist.dir" value="dist"/>
+    <property name="docs.dir" value="${dist.dir}/docs"/>
+    <property name="docs.api.dir" value="${dist.dir}/docs/api"/>
+    <property name="docs.js-api.dir" value="${dist.dir}/docs/js-api"/>
+    <property name="web.dir" value="web"/>
+
+    <!-- The directory where 3rd party libraries are stored. -->
+    <property name="lib.dir" value="lib"/>
+    <!-- The directory where test-time libraries are stored. -->
+    <property name="lib.testtime.dir" value="${lib.dir}/testtime"/>
+    <!-- The directory where runtime-time libraries are stored. -->
+    <property name="lib.runtime.dir" value="${lib.dir}/runtime"/>
+    <!-- The directory where build-time libraries are stored. -->
+    <property name="lib.buildtime.dir" value="${lib.dir}/buildtime"/>
+    <!-- The directory where deploy-time libraries are stored. -->
+    <property name="lib.deploytime.dir" value="${lib.dir}/deploytime"/>
+    
+    <path id="lib.runtime.classpath">
+        <fileset dir="${lib.runtime.dir}" includes="*.jar"/>
+    </path>
+    <path id="lib.buildtime.classpath">
+        <fileset dir="${lib.buildtime.dir}" includes="*.jar"/>
+    </path>
+    <path id="lib.testtime.classpath">
+        <fileset dir="${lib.testtime.dir}" includes="*.jar"/>
+    </path>
+    <path id="lib.deploytime.classpath">
+        <fileset dir="${lib.deploytime.dir}" includes="*.jar"/>
+    </path>
+
+    <!-- ============================================================ -->
+    <target name="usage">
+            <!-- For readability, don't extend beyond this line.  The length of a typical terminal window. -->
+        <echo message="======================================================================"/>
+        <echo message="Noteasaurus Build Script - ${project.version}"/>
+        <echo message=""/>
+        <echo message="Properties: These are ant properties which may be set to change the application configuration."/>
+        <echo message=""/>
+        <echo message="    db.url      = The JDBC url of the database to connect to."/>
+        <echo message="    db.username = The username of the database to connect to."/>
+        <echo message="    db.password = The password of the database to connect to."/>
+        <echo message="    db.driver   = The JDBC driver of the database to connect to."/>
+        <echo message=""/>
+        <echo message="Usage: "/>
+        <echo message="    ant [action]"/>
+        <echo message=""/>
+        <echo message="Where action is one of the following."/>
+        <echo message=""/>
+        <echo message="    usage:"/>
+        <echo message="        Display a brief usage summary for this build script."/>
+        <echo message=""/>
+        <echo message="    dist-all:"/>
+        <echo message="        Generate a .war file and javadocs."/>
+        <echo message=""/>
+        <echo message="    dist:"/>
+        <echo message="        Generate a .war file for deployment to a servlet"/>
+        <echo message="        container."/>
+        <echo message=""/>
+        <echo message="    stage-war:"/>
+        <echo message="        Copy all required files into the structure"/>
+        <echo message="        expected by the war file format into the staging"/>
+        <echo message="        directory."/>
+        <echo message=""/>
+        <echo message="    compile:"/>
+        <echo message="        Compile all of the java source files for the app."/>
+        <echo message=""/>
+        <echo message="    start:"/>
+        <echo message="        Launch the application using an embedded webserver."/>
+        <echo message=""/>
+        <echo message="    reload:"/>
+        <echo message="        Reload the application into the running embedded webserver."/>
+        <echo message=""/>
+        <echo message="    stop:"/>
+        <echo message="        Stop the embedded webserver from running."/>
+        <echo message=""/>
+        <echo message="    clean:"/>
+        <echo message="        Remove all generated artifacts, intermediate files and"/>
+        <echo message="        dependent libraries."/>
+        <echo message=""/>
+        <echo message="    clean-all:"/>
+        <echo message="        Remove all generated artifacts, intermediate files and"/>
+        <echo message="        dependent libraries and flush the local ivy cache."/>
+        <echo message=""/>
+        <echo message="    resolve-all:"/>
+        <echo message="        Fetch all of the dependencies for this project, this"/>        
+        <echo message="        requires network connectivity."/>
+        <echo message=""/>
+        <echo message="    resolve-runtime:"/>
+        <echo message="        Fetch runtime dependencies of this project."/>
+        <echo message=""/>
+        <echo message="    resolve-buildtime:"/>
+        <echo message="        Fetch buildtime dependencies of this project."/>
+        <echo message=""/>
+        <echo message="    resolve-testtime:"/>
+        <echo message="        Fetch testtime dependencies of this project."/>
+        <echo message=""/>
+        <echo message="    generate-docs:"/>
+        <echo message="        Generate javadocs for the source files."/>
+        <echo message=""/>
+        <echo message="    dependency-report:"/>
+        <echo message="        Generate an html report of our dependencies, this will be"/>
+        <echo message="        put in '${dist.dir}/reports/dependency'."/>
+        <echo message=""/>
+        <echo message="    test-all:"/>
+        <echo message="        Run all automated tests which are available for this project."/>
+        <echo message=""/>
+        <echo message="    test-findbugs-reports:"/>
+        <echo message="        Run the findbugs static analysis against the compiled"/>
+        <echo message="        class files for the application and generate xml and html reports."/>
+        <echo message=""/>
+        <echo message="    test-reports:"/>
+        <echo message="        Generate html and xml reports for the testcases."/>
+        <echo message=""/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="production-deploy" depends="clean,configure-prod-db,dist,redist,tomcat-deploy">
+    </target>
+
+    <target name="configure-prod-db">
+        <fail unless="prod.db.url" message="You must define the prod.db.url property in build.properties."/>
+        <fail unless="prod.db.driver" message="You must define the prod.db.driver property in build.properties."/>
+        <fail unless="prod.db.username" message="You must define the prod.db.username property in build.properties."/>
+        <fail unless="prod.db.password" message="You must define the prod.db.password property in build.properties."/>
+
+        <property name="db.driver" value="${prod.db.driver}"/>
+        <property name="db.url" value="${prod.db.url}"/>
+        <property name="db.username" value="${prod.db.username}"/>
+        <property name="db.password" value="${prod.db.password}"/>
+        <property name="input.file.war" value="${dist.dir}/${project.name}-${project.version}.war"/>
+        <property name="output.file.war" value="${dist.dir}/ROOT.war"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="dist-all" depends="dist,generate-docs"/>
+    
+    <!-- =================================================================== -->
+    <target name="dist" depends="stage-war">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/${project.name}-${project.version}.war"
+             webxml="${stage.war.dir}/WEB-INF/web.xml">
+            <fileset dir="${stage.war.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </war>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- This is a useful utility for taking a distributable .war and rewriting
+         its configuration parameters so that it can connect to a different database. -->
+    <target name="redist" depends="install-ant-contrib,configure-db,resolve-runtime">
+        <fail unless="input.file.war"/>
+        <fail unless="output.file.war"/>
+        <fail unless="db.username"/>
+        <fail unless="db.password"/>
+        <fail unless="db.url"/>
+        <fail unless="db.driver"/>
+        
+        <mkdir dir="${tmp.dir}"/>
+        <unwar src="${input.file.war}" dest="${tmp.dir}/${input.file.war}"/>
+        <propertyfile file="${tmp.dir}/${input.file.war}/WEB-INF/classes/config.properties">
+            <entry key="db.driver" value="${db.driver}"/>
+            <entry key="db.url" value="${db.url}"/>
+            <entry key="db.username" value="${db.username}"/>
+            <entry key="db.password" value="${db.password}"/>
+        </propertyfile>
+
+        <!-- Delete the db drivers we don't need. -->
+        <if>
+            <equals arg1="${db.driver}" arg2="org.apache.derby.jdbc.EmbeddedDriver"/>
+            <then>
+                <delete>
+                    <fileset dir="${tmp.dir}/${input.file.war}/WEB-INF/lib">
+                        <include name="postgresql-*.jar"/>
+                        <include name="mysql-*.jar"/>
+                    </fileset>
+                </delete>
+            </then>
+            <elseif>
+                <equals arg1="${db.driver}" arg2="org.postgresql.Driver"/>
+                <then>
+                    <delete>
+                        <fileset dir="${tmp.dir}/${input.file.war}/WEB-INF/lib">
+                            <include name="derbytools-*.jar"/>
+                            <include name="derby-*.jar"/>
+                            <include name="mysql-*.jar"/>
+                        </fileset>
+                    </delete>
+                </then>
+            </elseif>
+            <elseif>
+                <equals arg1="${db.driver}" arg2="com.mysql.jdbc.Driver"/>
+                <then>
+                    <delete>
+                        <fileset dir="${tmp.dir}/${input.file.war}/WEB-INF/lib">
+                            <include name="derbytools-*.jar"/>
+                            <include name="derby-*.jar"/>
+                            <include name="postgresql-*.jar"/>
+                        </fileset>
+                    </delete>
+                </then>
+            </elseif>
+        </if>
+        <war basedir="${tmp.dir}/${input.file.war}" file="${output.file.war}"/>
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="stage-war" depends="configure-db,compile">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${stage.dir}"/>
+        <mkdir dir="${stage.war.dir}"/>
+        <copy todir="${stage.war.dir}">
+            <fileset dir="${web.dir}">
+                <!-- We will exclude these as we compress and copy them below. -->
+                <exclude name="**/*.css"/>
+                <exclude name="js/**/*.js"/>
+                <exclude name="asset/**/*"/>
+            </fileset>
+        </copy>
+        <copy todir="${stage.war.dir}">
+            <fileset dir="${web.dir}">
+                <include name="asset/gfx/images/notes-logo.gif"/>
+            	<include name="asset/gfx/images/note.png"/>
+                <include name="asset/gfx/icons/silk/note_add.png"/>
+                <include name="asset/gfx/icons/silk/application_view_tile.png"/>
+                <include name="asset/gfx/icons/silk/application_view_list.png"/>
+                <include name="asset/gfx/icons/silk/application_key.png"/>
+                <include name="asset/gfx/icons/silk/door_out.png"/>
+                <include name="asset/gfx/icons/tango/22x22/actions/folder-new.png"/>
+                <include name="asset/gfx/icons/silk/cog.png"/>
+                <include name="asset/gfx/icons/tango/32x32/places/folder.png"/>
+                <include name="asset/gfx/icons/tango/32x32/status/folder-open.png"/>
+            	<include name="asset/gfx/icons/tango/32x32/status/folder-drag-accept.png"/>
+                <include name="asset/gfx/icons/silk/color_swatch.png"/>
+            </fileset>
+        </copy>
+        <parallel>
+            <!-- Only one of these will be invoked, the default is to not use 
+                 compression, we can enable compression by defining the following
+                 property
+                 
+                 ant -Duse.js.compression=1
+            -->
+            <antcall target="copy-js-and-css-withcompression"/>
+            <antcall target="copy-js-and-css-withoutcompression"/>
+
+            <!-- Copy our compiled application classes into place. -->
+            <copy todir="${stage.war.dir}/WEB-INF/classes">
+                <fileset dir="${build.main.java.dir}">
+                    <include name="**/*"/>
+                </fileset>
+            </copy>
+            
+            <!-- This copies configuration and other static resources into the
+                 classpath. TODO, we may need to perform substitution here at
+                 some point in the future.
+            -->
+            <copy todir="${stage.war.dir}/WEB-INF/classes">
+                <fileset dir="${src.main.resources.dir}">
+                    <include name="**/*"/>
+                </fileset>
+                <filterset>
+                    <filter token="DB_DRIVER" value="${db.driver}"/>
+                    <filter token="DB_URL" value="${db.url}"/>
+                    <filter token="DB_USERNAME" value="${db.username}"/>
+                    <filter token="DB_PASSWORD" value="${db.password}"/>
+                </filterset>
+            </copy>
+            
+            <!-- Copy our 3rd party libraries into place. -->
+            <copy todir="${stage.war.dir}/WEB-INF/lib">
+                <fileset dir="${lib.runtime.dir}">
+                    <include name="*.jar"/>
+                </fileset>
+            </copy>
+        </parallel>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="copy-js-and-css-withcompression" depends="install-yuicompressor" if="use.js.compression">
+        <yuicompressor todir="${stage.war.dir}">
+            <fileset dir="${web.dir}">
+                <include name="**/*.css"/>
+                <include name="js/**/*.js"/>
+            </fileset>
+        </yuicompressor>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- This is a utility target used for compressing individual files      -->
+    <!-- =================================================================== -->
+	<target name="js-compress" depends="install-yuicompressor">
+        <yuicompressor todir="/tmp">
+            <fileset dir="${web.dir}">
+                <include name="**/${target.file}"/>
+            </fileset>
+        </yuicompressor>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="copy-js-and-css-withoutcompression" unless="use.js.compression">
+        <copy todir="${stage.war.dir}">
+            <fileset dir="${web.dir}">
+                <include name="**/*.css"/>
+                <include name="js/**/*.js"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="compile" depends="resolve-buildtime,resolve-runtime">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.main.dir}"/>
+        <mkdir dir="${build.main.java.dir}"/>
+        <javac srcdir="${src.main.java.dir}"
+               destdir="${build.main.java.dir}"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               optimize="${compile.optimize}"
+               target="${compile.target}"
+               source="${compile.source}"
+               encoding="UTF-8">
+            <classpath>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="lib.buildtime.classpath"/>
+            </classpath>
+        </javac>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="compile-tests" depends="compile-unit-tests,compile-selenium-tests"/>
+
+    <!-- =================================================================== -->
+    <target name="compile-unit-tests" depends="compile,resolve-testtime">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.tests.dir}"/>
+        <mkdir dir="${build.tests.java.dir}"/>
+        <javac srcdir="${src.tests.java.dir}"
+               destdir="${build.tests.java.dir}"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               optimize="${compile.optimize}"
+               target="${compile.target}"
+               source="${compile.source}"
+               encoding="UTF-8">
+            <classpath>
+                <path refid="lib.buildtime.classpath"/>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="lib.testtime.classpath"/>
+                <pathelement path="${build.main.java.dir}"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.tests.java.dir}">
+            <fileset dir="${src.tests.resources.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="compile-selenium-tests" depends="compile,resolve-testtime">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.tests.dir}"/>
+        <mkdir dir="${build.selenium-tests.java.dir}"/>
+        <javac srcdir="${src.selenium-tests.java.dir}"
+               destdir="${build.selenium-tests.java.dir}"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               optimize="${compile.optimize}"
+               target="${compile.target}"
+               source="${compile.source}"
+               encoding="UTF-8">
+            <classpath>
+                <path refid="lib.buildtime.classpath"/>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="lib.testtime.classpath"/>
+                <pathelement path="${build.main.java.dir}"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.tests.java.dir}">
+            <fileset dir="${src.tests.resources.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="generate-docs" depends="install-jsdoctoolkit,resolve-buildtime,resolve-runtime">
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${docs.dir}"/>
+        <mkdir dir="${docs.api.dir}"/>
+        <mkdir dir="${docs.js-api.dir}"/>
+        
+        <jsdoctoolkit 
+                 jsdochome="${jsdoctoolkit.dir}" 
+                 template="jsdoc" 
+                 outputdir="${docs.js-api.dir}" 
+                 inputdir="${web.dir}/js">
+            <fileset dir="${web.dir}/js">
+                <include name="**/*.js"/>
+            </fileset>
+        </jsdoctoolkit>
+                 
+        <javadoc destdir="${docs.api.dir}"
+                 author="true"
+                 version="true"
+                 packagenames="com.metrosix.noteasaurus.*"
+                 sourcepath="${src.main.java.dir}">            
+            <classpath>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="lib.buildtime.classpath"/>
+            </classpath>
+        </javadoc>
+        
+        <zip destfile="${dist.dir}/${project.name}-docs-${project.version}.zip" basedir="${docs.dir}" />
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="resolve-all" depends="resolve-runtime,resolve-buildtime,resolve-testtime,resolve-deploytime" unless="resolve.no">
+        <property name="resolve.no" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="resolve-runtime" depends="install-ivy" unless="runtime.resolved">
+        <ivy:retrieve pattern="${lib.runtime.dir}/[artifact]-[revision].[ext]" conf="runtime"/>
+        <property name="runtime.resolved" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="resolve-buildtime" depends="install-ivy" unless="buildtime.resolved">
+        <ivy:retrieve pattern="${lib.buildtime.dir}/[artifact]-[revision].[ext]" conf="buildtime"/>
+        <property name="buildtime.resolved" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="resolve-testtime" depends="install-ivy" unless="testtime.resolved">
+        <ivy:retrieve pattern="${lib.testtime.dir}/[artifact]-[revision].[ext]" conf="testtime"/>
+        <property name="testtime.resolved" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="resolve-deploytime" depends="install-ivy" unless="deploytime.resolved">
+        <ivy:retrieve pattern="${lib.deploytime.dir}/[artifact]-[revision].[ext]" conf="deploytime"/>
+        <property name="deploytime.resolved" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="clean-all" depends="install-ivy,clean">
+        <ivy:cleancache/>
+        <parallel>
+            <delete dir="${lib.dir}"/>
+        </parallel>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="clean" depends="install-ivy">
+        <parallel>
+            <delete dir="${lib.runtime.dir}"/>
+            <delete dir="${lib.testtime.dir}"/>
+            <delete dir="${lib.buildtime.dir}"/>
+            <delete dir="${lib.deploytime.dir}"/>
+            <delete dir="${stage.dir}"/>
+            <delete dir="${dist.dir}"/>
+            <delete dir="${build.dir}"/>
+            <delete dir="${tmp.dir}"/>
+            <delete file="cobertura.ser"/>
+            <delete file="derby.log"/>
+        </parallel>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- These targets are used to test and generate reports against the app -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <target name="dependency-report" depends="install-ivy,resolve-all">
+        <ivy:report conf="runtime" todir="${dist.dir}/reports/dependency"/>
+        <ivy:report conf="buildtime" todir="${dist.dir}/reports/dependency"/>
+        <ivy:report conf="testtime" todir="${dist.dir}/reports/dependency"/>
+        <ivy:report conf="deploytime" todir="${dist.dir}/reports/dependency"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="test-all" depends="set-test,test-findbugs-reports,test-junit,test-selenium,generate-unittest-reports"/>
+
+    <!-- =================================================================== -->
+    <target name="set-test">
+        <property name="db.name" value="noteasaurustest"/>
+        <property name="db.username" value="noteasaurustest"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="instrument-classes" depends="stage-war,install-cobertura" unless="already.instrumented">
+        <cobertura-instrument todir="${build.main.cobertura.dir}">
+            <includeClasses regex=".*"/>
+            <instrumentationClasspath>
+                <pathelement path="${stage.war.dir}/WEB-INF/classes"/>
+            </instrumentationClasspath>
+        </cobertura-instrument>
+        <!-- The instrument task apparently doesn't copy interfaces :(       -->
+        <copy todir="${build.main.cobertura.dir}">
+            <fileset dir="${stage.war.dir}/WEB-INF/classes">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        <property name="already.instrumented" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="stage-selenium-war" depends="instrument-classes">
+        <mkdir dir="${stage.selenium.war.dir}"/>
+        <!-- Copy the staging directory -->
+        <copy todir="${stage.selenium.war.dir}">
+            <fileset dir="${stage.war.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        <!-- Copy the instrumented classes into the classes directory. -->
+        <copy todir="${stage.selenium.war.dir}/WEB-INF/classes" overwrite="true">
+            <fileset dir="${build.main.cobertura.dir}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="create-reports-dir">
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/reports"/>
+        <mkdir dir="${dist.dir}/reports/junit-xml"/>
+        <mkdir dir="${dist.dir}/reports/junit-html"/>
+        <mkdir dir="${dist.dir}/reports/cobertura-xml"/>
+        <mkdir dir="${dist.dir}/reports/cobertura-html"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="test-junit" depends="set-test,instrument-classes,compile-unit-tests,create-reports-dir">
+        <junit fork="true"
+               forkmode="once"
+               printsummary="on"
+               haltonfailure="false"
+               failureproperty="test.failed">
+            <classpath>
+                <path refid="lib.buildtime.classpath"/>
+                <path refid="lib.runtime.classpath"/>
+                <path refid="lib.testtime.classpath"/>
+                <pathelement path="${build.main.cobertura.dir}"/>
+                <pathelement path="${build.tests.java.dir}"/>
+            </classpath>
+            <formatter type="brief" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${dist.dir}/reports/junit-xml">
+                <fileset dir="${build.tests.java.dir}">
+                    <include name="**/${test.filepattern}Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="test-selenium" depends="set-test,instrument-classes,install-ant-contrib,compile-selenium-tests,create-reports-dir" unless="no.selenium">
+        <!-- Start the selenium server -->
+        <antcall target="start-selenium">
+            <param name="spawn" value="true"/>
+        </antcall>
+
+        <trycatch>
+            <try>
+                <!-- Create the database -->
+                <if>
+                    <not>
+                        <equals arg1="${use.derby}" arg2=""/>
+                    </not>
+                    <then>
+                        <antcall target="install-apache-derby" inheritall="true"/>
+                        <antcall target="create-db-derby" inheritall="true"/>
+                    </then>
+                </if>
+                <if>
+                    <not>
+                        <equals arg1="${use.postgresql}" arg2=""/>
+                    </not>
+                    <then>
+                        <antcall target="create-db-postgresql" inheritall="true"/>
+                    </then>
+                </if>
+                <if>
+                    <not>
+                        <equals arg1="${use.mysql}" arg2=""/>
+                    </not>
+                    <then>
+                        <antcall target="create-db-mysql" inheritall="true"/>
+                    </then>
+                </if>
+                <trycatch>
+                    <try>
+                        <!-- Start the noteasaurus web application -->
+                        <antcall target="start-app-for-selenium">
+                            <param name="spawn" value="true"/>
+                        </antcall>
+                        <trycatch>
+                            <try>
+                                <!-- Wait for start -->
+                                <sleep seconds="30"/>
+
+                                <!-- Insert our users. -->
+                                <if>
+                                    <not>
+                                        <equals arg1="${use.derby}" arg2=""/>
+                                    </not>
+                                    <then>
+                                        <antcall target="create-derby-test-users" inheritall="true"/>
+                                    </then>
+                                    <else>
+                                        <antcall target="create-test-users" inheritall="true"/>
+                                    </else>
+                                </if>
+                                <junit fork="true"
+                                       forkmode="once"
+                                       printsummary="on"
+                                       haltonfailure="false"
+                                       failureproperty="test.failed">
+                                    <sysproperty key="selenium.server.host" value="${selenium.server.host}"/>
+                                    <sysproperty key="selenium.browser.command" value="${selenium.browser.command}"/>
+                                    <sysproperty key="selenium.server.port" value="${selenium.server.port}"/>
+                                    <sysproperty key="selenium.browser.url" value="${selenium.browser.url}"/>
+                                    <classpath>
+                                        <path refid="lib.buildtime.classpath"/>
+                                        <path refid="lib.runtime.classpath"/>
+                                        <path refid="lib.testtime.classpath"/>
+                                        <pathelement path="${build.selenium-tests.java.dir}"/>
+                                    </classpath>
+                                    <formatter type="brief" usefile="false"/>
+                                    <formatter type="xml"/>
+                                    <batchtest todir="${dist.dir}/reports/junit-xml">
+                                        <fileset dir="${build.selenium-tests.java.dir}">
+                                            <include name="**/${test.filepattern}Test.class"/>
+                                        </fileset>
+                                    </batchtest>
+                                </junit>
+                            </try>
+                            <finally>
+                                <!-- Stop the noteasaurus web application -->
+                                <antcall target="stop"/>
+                            </finally>
+                        </trycatch>
+                    </try>
+                    <finally>
+                        <if>
+                            <not>
+                                <equals arg1="${use.derby}" arg2="" />
+                            </not>
+                            <then>
+                                <antcall target="drop-db-derby" inheritall="true"/>
+                            </then>
+                            <else>
+                                <!-- Drop the database -->
+                                <antcall target="drop-db" inheritall="true"/>
+                            </else>
+                        </if>
+                    </finally>
+                </trycatch>
+            </try>
+            <finally>
+                <!-- Stop the selenium test server -->
+                <antcall target="stop-selenium"/>
+            </finally>
+        </trycatch>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="start-selenium" depends="resolve-testtime">
+        <property name="spawn" value="false"/>
+        <java jar="${lib.testtime.dir}/selenium-server-${selenium.version}.jar" spawn="${spawn}" fork="true">
+            <arg line="-port ${selenium.server.port}"/>
+        </java>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="stop-selenium" depends="resolve-testtime">
+        <get taskname="selenium-shutdown" src="http://${selenium.server.host}:${selenium.server.port}/selenium-server/driver/?cmd=shutDown" dest="stop-selenium.txt" ignoreerrors="true"/>
+        <delete file="stop-selenium.txt"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="test-junit-reports" depends="test-junit">
+        <antcall target="generate-unittest-reports"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="test-selenium-reports" depends="test-selenium">
+        <antcall target="generate-unittest-reports"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="generate-unittest-reports" depends="install-cobertura">
+        <junitreport todir="${dist.dir}/reports/junit-html">
+            <fileset dir="${dist.dir}/reports/junit-xml">
+                <include name="TEST*.xml"/>
+            </fileset>
+            <report format="frames" todir="${dist.dir}/reports/junit-html"/>
+        </junitreport>
+        <cobertura-report format="xml" destdir="${dist.dir}/reports/cobertura-xml">
+            <fileset dir="${src.main.java.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+        <cobertura-report format="html" destdir="${dist.dir}/reports/cobertura-html">
+            <fileset dir="${src.main.java.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="test-findbugs-reports" depends="resolve-all">
+        <antcall target="test-findbugs" inheritall="true">
+            <param name="findbugs.output" value="html"/>
+            <param name="findbugs.extension" value="html"/>
+        </antcall>
+        <antcall target="test-findbugs" inheritall="true">
+            <param name="findbugs.output" value="xml:withMessages"/>
+            <param name="findbugs.extension" value="xml"/>
+        </antcall>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="test-findbugs" depends="stage-war,install-findbugs" unless="findbugs.${findbugs.extension}.no">
+        <fail unless="findbugs.output" message="The property ${findbugs.output} must be defined."/>
+        <fail unless="findbugs.extension" message="The property ${findbugs.extension} must be defined."/>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/reports"/>
+        <mkdir dir="${dist.dir}/reports/findbugs-${findbugs.extension}"/>
+        <findbugs home="${build.dir}/findbugs" 
+                  output="${findbugs.output}"
+                  outputFile="${dist.dir}/reports/findbugs-${findbugs.extension}/findbugs.${findbugs.extension}"
+                  effort="max">
+            <auxClasspath>
+                <path>
+                    <!-- 3rd party dependencies which we don't want to analyze. -->
+                    <fileset dir="${stage.war.dir}/WEB-INF/lib">
+                        <include name="**/*.jar"/>
+                    </fileset>
+
+                    <!-- These are for libraries typically provided by the container. -->
+                    <fileset dir="${lib.buildtime.dir}">
+                        <include name="*.jar"/>
+                    </fileset>
+                </path>
+            </auxClasspath>
+
+            <!-- Now list the classes we want to analyze. -->
+            <sourcePath path="${src.main.java.dir}"/>
+            <class location="${stage.war.dir}/WEB-INF/classes"/>
+        </findbugs>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- These targets are used to start, reload and stop the embedded       -->
+    <!-- webserver for testing purposes.                                     -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    
+    <!-- =================================================================== -->
+    <target name="start" depends="stage-war,resolve-testtime">
+        <property name="spawn" value="false"/>
+        <java jar="${lib.testtime.dir}/winstone-${winstone.version}.jar" spawn="${spawn}" fork="true">
+            <jvmarg value="-Xdebug" />
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=10000,server=y,suspend=n" />
+            <arg line="--webroot=${stage.war.dir} --controlPort=${project.conf.controlPort} --httpPort=${project.conf.httpPort} --ajp13Port=-1"/>
+        </java>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="start-app-for-selenium" depends="stage-selenium-war,resolve-testtime">
+        <property name="spawn" value="false"/>
+        <java jar="${lib.testtime.dir}/winstone-${winstone.version}.jar" spawn="${spawn}" fork="true" >
+            <jvmarg value="-Xdebug -Xrunjdwp:transport=dt_socket,address=10000,server=y,suspend=n"/>
+            <arg line="--webroot=${stage.selenium.war.dir} --controlPort=${project.conf.controlPort} --httpPort=${project.conf.httpPort} --ajp13Port=-1 --commonLibFolder=${lib.testtime.dir}"/>
+        </java>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="reload" depends="stage-war,resolve-testtime">
+        <java classname="winstone.tools.WinstoneControl">
+            <arg line="--controlPort=${project.conf.controlPort} reload:"/>
+            <classpath>
+                <pathelement location="${lib.testtime.dir}/winstone-${winstone.version}.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="stop" depends="resolve-testtime">
+        <java classname="winstone.tools.WinstoneControl">
+            <arg line="--controlPort=${project.conf.controlPort} shutdown"/>
+            <classpath>
+                <pathelement location="${lib.testtime.dir}/winstone-${winstone.version}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- These targets are used to setup, start and reload the database      -->
+    <!-- of your choosing for testing purposes.                              -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <!-- This will setup default connection parameters for the database of your choosing
+
+         # ant -Duse.mysql=1 start
+             will use the configuration definied in configure-db-mysql
+
+         # ant -Duse.postgresql=1 start
+             will use the configuration definied in configure-db-postgresql
+
+         # ant -Duse.derby=1 start
+             is the default and will be used if no other config is provided. -->
+    <target name="configure-db" depends="configure-db-mysql,configure-db-postgresql,configure-db-derby"/>
+
+    <!-- =================================================================== -->
+    <target name="configure-db-derby" if="use.derby" unless="derby.configured">
+        <property name="db.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+        <property name="db.url" value="jdbc:derby:${java.io.tmpdir}/noteasaurusDb;create=true"/>
+        <property name="db.superurl" value="jdbc:derby:${java.io.tmpdir}/noteasaurusDb;create=true"/>
+        <property name="db.superuser" value="sa"/>
+        <property name="db.superpassword" value=""/>
+        <property name="db.username" value="noteasaurus"/>
+        <property name="db.password" value="noteasaurus"/>
+        <echo message="db.driver = ${db.driver}"/>
+        <property name="derby.configured" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="configure-db-postgresql" if="use.postgresql" unless="postgresql.configured">
+        <property name="db.name" value="noteasaurus"/>
+        <property name="db.host" value="localhost"/>
+        <property name="db.driver" value="org.postgresql.Driver"/>
+        <property name="db.url" value="jdbc:postgresql://${db.host}/${db.name}"/>
+        <property name="db.superuser" value="postgres"/>
+        <property name="db.superurl" value="jdbc:postgresql://${db.host}/"/>
+        <property name="db.username" value="noteasaurus"/>
+        <property name="db.password" value="noteasaurus"/>
+        <echo message="db.driver = ${db.driver}"/>
+        <property name="postgresql.configured" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="configure-db-mysql" if="use.mysql" unless="mysql.configured">
+        <property name="db.name" value="noteasaurus"/>
+        <property name="db.host" value="localhost"/>
+        <property name="db.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="db.url" value="jdbc:mysql://${db.host}/${db.name}"/>
+        <property name="db.superuser" value="root"/>
+        <property name="db.superurl" value="jdbc:mysql://${db.host}/"/>
+        <property name="db.username" value="noteasaurus"/>
+        <property name="db.password" value="noteasaurus"/>
+        <echo message="db.driver = ${db.driver}"/>
+        <property name="mysql.configured" value="true"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <target name="create-db-mysql" depends="configure-db,resolve-runtime" if="use.mysql">
+        <sql
+            classpathref="lib.runtime.classpath"
+            driver="${db.driver}"
+            url="${db.superurl}"
+            userid="${db.superuser}"
+            password="${db.superpassword}">
+                CREATE DATABASE ${db.name};
+                CREATE USER ${db.username};
+                GRANT ALL ON ${db.name}.* TO '${db.username}'@'${db.host}' IDENTIFIED BY '${db.password}';
+        </sql>
+    </target>
+
+    <!-- ================================================================== -->
+    <target name="create-db-postgresql" depends="configure-db,resolve-runtime" if="use.postgresql">
+        <sql
+            autocommit="true"
+            classpathref="lib.runtime.classpath"
+            driver="${db.driver}"
+            url="${db.superurl}"
+            userid="${db.superuser}"
+            password="${db.superpassword}">
+                CREATE DATABASE ${db.name};
+                CREATE USER ${db.username} PASSWORD '${db.password}';
+                GRANT ALL ON DATABASE ${db.name} TO ${db.username};
+        </sql>
+    </target>
+
+        <!-- ================================================================== -->
+    <target name="create-db-derby" depends="configure-db,resolve-runtime" if="use.derby">
+        <sql classpathref="lib.testtime.classpath"
+            driver="${db.driver}"
+            url="${db.superurl}"
+            userid="${db.superuser}"
+            password="${db.superpassword}"
+            autocommit="yes"
+            onerror="continue"
+            caching="yes">
+                CREATE SCHEMA ${db.name};
+                CREATE TABLE ${db.name}.PERSON (
+                    "ID" integer not null primary key,
+                    "VERSION" integer,
+                    "HASHCODE" varchar(255),
+                    "IS_VERIFIED" varchar(1),
+                    "CREATED_ON" date,
+                    "PASSWORD" varchar(255),
+                    "EMAIL" varchar(255),
+                    "SECRET_KEY" varchar(255)
+                );
+        </sql>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="create-test-users" depends="configure-db,resolve-runtime">
+        <sql
+            classpathref="lib.runtime.classpath"
+            driver="${db.driver}"
+            url="${db.url}"
+            userid="${db.username}"
+            password="${db.password}">
+                INSERT INTO ${db.name}.person (id, version, hashcode, is_verified, created_on, password, email, secret_key) VALUES
+                    ( -1, 0, -1, 'T', now(), 'CqNnainTuaSwGpwvNZrhfokXLeQR7XpbE7sQFX3Xbh1G/g3OK06G3SiiS5MHmXB2', 'verified_user@metro-six.com', 'Zx1Z7Ls8dX5yVNI+mDffRg==');
+                INSERT INTO ${db.name}.person (id, version, hashcode, is_verified, created_on, password, email, secret_key) VALUES
+                    ( -2, 0, -2, 'F', now(), 'CqNnainTuaSwGpwvNZrhfokXLeQR7XpbE7sQFX3Xbh1G/g3OK06G3SiiS5MHmXB2', 'unverified_user@metro-six.com', 'Zx1Z7Ls8dX5yVNI+mDffRg==');
+        </sql>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="create-derby-test-users" depends="configure-db,resolve-testtime">
+        <sql
+            classpathref="lib.runtime.classpath"
+            driver="${db.driver}"
+            url="${db.url}"
+            userid="${db.username}"
+            password="${db.password}">
+                INSERT INTO ${db.name}.PERSON (id, version, hashcode, is_verified, created_on, password, email, secret_key) VALUES
+                    ( -1, 0, '-1', 'T', CURRENT_DATE, 'CqNnainTuaSwGpwvNZrhfokXLeQR7XpbE7sQFX3Xbh1G/g3OK06G3SiiS5MHmXB2', 'verified_user@metro-six.com', 'Zx1Z7Ls8dX5yVNI+mDffRg==');
+                INSERT INTO ${db.name}.PERSON (id, version, hashcode, is_verified, created_on, password, email, secret_key) VALUES
+                    ( -2, 0, '-2', 'F', CURRENT_DATE, 'CqNnainTuaSwGpwvNZrhfokXLeQR7XpbE7sQFX3Xbh1G/g3OK06G3SiiS5MHmXB2', 'unverified_user@metro-six.com', 'Zx1Z7Ls8dX5yVNI+mDffRg==');
+        </sql>
+    </target>
+
+    <!-- ================================================================== -->
+    <target name="drop-db" depends="configure-db,resolve-runtime">
+        <sql
+            autocommit="true"
+            classpathref="lib.runtime.classpath"
+            driver="${db.driver}"
+            url="${db.superurl}"
+            userid="${db.superuser}"
+            password="${db.superpassword}">
+                DROP DATABASE ${db.name};
+                DROP USER ${db.username};
+            </sql>
+    </target>
+
+    <!-- ================================================================== -->
+    <target name="drop-db-derby" depends="configure-db,resolve-runtime">
+        <sql classpathref="lib.testtime.classpath"
+            driver="${db.driver}"
+            url="${db.superurl}"
+            userid="${db.superuser}"
+            password="${db.superpassword}"
+            autocommit="yes"
+            onerror="continue"
+            caching="yes">
+                DROP TABLE ${db.name}.PERSON;
+                DROP SCHEMA ${db.name} RESTRICT;
+        </sql>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- INTEGRATIONS WITH TOMCAT                                            -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+
+	<target name="tomcat-list" depends="install-ant-tomcat">
+        <tomcat:list
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            url="${tomcat.url}"/>
+    </target>
+
+    <target name="tomcat-deploy" depends="install-ant-tomcat">
+        <fail unless="tomcat.username"/>
+        <fail unless="tomcat.password"/>
+        <fail unless="tomcat.url"/>
+        <fail unless="deploy.war.url"/>
+        <fail unless="deploy.update"/>
+        <fail unless="deploy.path"/>
+        <tomcat:deploy
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            url="${tomcat.url}"
+            war="${deploy.war.url}"
+            update="${deploy.update}"
+            path="${deploy.path}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- PRIVATE TARGETS, SHOULD NOT NEED TO USE THESE DIRECTLY              -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+
+    <!-- =================================================================== -->
+    <target name="download-ivy" unless="ivy.available">
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${lib.dir}/ivy"/>
+        <echo message="installing ivy..."/>
+        <get src="http://ivy.metro-six.com/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar" dest="${lib.dir}/ivy/ivy-${ivy.version}.jar" usetimestamp="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="install-ivy" unless="ivy.installed">
+        <available file="${lib.dir}/ivy/ivy-${ivy.version}.jar" property="ivy.available"/>
+        <antcall target="download-ivy"/>
+        <path id="ivy.lib.path">
+            <fileset dir="${lib.dir}/ivy" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <property name="ivy.installed" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="install-ant-contrib" depends="resolve-buildtime" unless="ant-contrib.installed">
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+            <classpath>
+                <fileset dir="${lib.buildtime.dir}">
+                    <include name="ant-contrib-*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+        <property name="ant-contrib.installed" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="install-apache-derby" depends="install-ant-contrib, resolve-testtime" unless="apache-derby.installed">
+        <get src="http://ivy.metro-six.com/db-derby/embedded/${derby.version}/derby-${derby.version}.jar" dest="${lib.testtime.dir}/derby-${derby.version}.jar" usetimestamp="true"/>
+        <get src="http://ivy.metro-six.com/db-derby/embedded/${derby.version}/derbytools-${derby.version}.jar" dest="${lib.testtime.dir}/derbytools-${derby.version}.jar" usetimestamp="true"/>
+        <property name="apache-derby.installed" value="true"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <target name="install-ant-tomcat" depends="resolve-deploytime" unless="ant-tomcat.installed">
+        <taskdef resource="org/apache/catalina/ant/antlib.xml" uri="antlib:org.apache.catalina.ant">
+            <classpath>
+                <fileset dir="${lib.buildtime.dir}">
+                    <include name="catalina-ant-*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+        <property name="ant-tomcat.installed" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="install-yuicompressor" depends="resolve-buildtime" unless="yuicompressor.installed">
+        <path id="yuicompressor.path">
+            <fileset dir="${lib.buildtime.dir}">
+                <include name="yuicompressor-*.jar"/>
+            </fileset>
+        </path>
+        <taskdef name="yuicompressor" classname="com.metrosix.yuicompressor.anttask.YuiCompressorTask"
+                 classpathref="yuicompressor.path"/>
+        <property name="yuicompressor.installed" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="install-jsdoctoolkit" depends="resolve-buildtime" unless="jsdoctoolkit.installed">
+        <unzip dest="${lib.buildtime.dir}">
+            <fileset dir="${lib.buildtime.dir}">
+                <include name="jsdoc_toolkit*.zip"/>
+            </fileset>
+        </unzip>
+        <path id="jsdoctoolkit.path">
+            <fileset dir="${lib.buildtime.dir}">
+                <include name="js-*.jar"/>
+                <include name="jsdoctoolkit-anttask-*.jar"/>
+            </fileset>
+        </path>
+        <taskdef name="jsdoctoolkit" 
+            classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" 
+            classpathref="jsdoctoolkit.path" />
+        <!-- TODO: We could probably use a mapper element on the unzip task to 
+             make this directory structure a bit cleaner. -->
+        <property name="jsdoctoolkit.dir" value="${lib.buildtime.dir}/jsdoc_toolkit-${jsdoctoolkit.version}/jsdoc-toolkit/"/>
+        <property name="jsdoctoolkit.installed" value="true"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <target name="install-findbugs" depends="resolve-testtime">
+        <!-- unzips findbugs into the test directory. -->
+        <unzip dest="${build.dir}/findbugs">
+            <fileset dir="${lib.testtime.dir}">
+                <include name="findbugs-*.zip"/>
+            </fileset>
+            <!-- This strips out the findbugs-version directory which 
+                 is contained within the zip archive. -->
+            <mapper type="regexp" from="^findbugs-[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9])?/(.*)$$" to="\2"/>
+        </unzip>
+        <!-- This works around an ironic bug in findbugs ... -->
+        <mkdir dir="${build.dir}/findbugs/plugin"/>
+
+        <!-- Now define the findbugs task. -->
+        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+            <classpath>
+                <path>
+                    <fileset dir="${build.dir}/findbugs/lib">
+                        <include name="*.jar"/>
+                    </fileset>
+                </path>
+            </classpath>
+        </taskdef>        
+    </target>    
+    
+    <!-- =================================================================== -->
+    <target name="install-cobertura" depends="resolve-testtime">
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <path>
+                    <fileset dir="${lib.testtime.dir}">
+                        <include name="cobertura-*.jar"/>
+                        <include name="asm-tree-*.jar"/>
+                        <include name="asm-*.jar"/>
+                        <include name="jakarta-oro-*.jar"/>
+                        <include name="log4j-*.jar"/>
+                    </fileset>
+                </path>
+            </classpath>
+        </taskdef>
+    </target>
+</project>

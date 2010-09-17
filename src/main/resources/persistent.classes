@@ -1,0 +1,11 @@
+
+#
+# This file lists our persistent classes which should be scanned for annotations
+# which instruct hibernate how to map the classes to database tables.
+#
+
+com.metrosix.noteasaurus.domain.Person
+com.metrosix.noteasaurus.domain.Note
+com.metrosix.noteasaurus.domain.Corkboard
+com.metrosix.noteasaurus.domain.VerificationToken
+com.metrosix.noteasaurus.domain.ConfigurationParameter
