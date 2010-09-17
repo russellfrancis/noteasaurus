@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Notesaurus is an online note-taking application that brings 'sticky' notes to the browser so they can can be accessed from any internet connected computer. Use it to remember thoughts, ideas, numbers or anything you don't want to forget." />
+<meta name="keywords" content="notes, note taking, note-taking, post-it notes, sicky notes, online notes" />
+<title>notes.ideasaur.us</title>
+
+<script type="text/javascript" src="js-lib/jquery.js"></script>
+<script type="text/javascript" src="js-lib/jquery.ui.js"></script>
+<script type="text/javascript" src="js-lib/JSON.js"></script>
+<script type="text/javascript" src="js-lib/sha1.js"></script>
+<script type="text/javascript" src="js-lib/swfaddress.js"></script>
+
+<script type="text/javascript" src="js/ideasaurus/ideasaurus.js"></script>
+
+<script type="text/javascript">
+
+var facade;
+
+$(function(){	
+	ideasaurus.importClass( 'ideasaurus.ApplicationLoader' , loadApp);
+})
+
+function loadApp() {
+	try {
+		ideasaurus.ApplicationLoader.load( startApp );
+	} catch( error ) {
+		setTimeout( function() { ideasaurus.ApplicationLoader.load( startApp ) } , 100  );
+	}
+}
+
+function startApp() {
+    facade = new ideasaurus.ApplicationFacade();
+    facade.init();
+}
+
+</script>
+
+<link rel="stylesheet" media="screen" type="text/css" href="css/application.css" />
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6958367-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

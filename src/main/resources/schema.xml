@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema>
+    <!--
+        This comment should contain a copy of the schema for reference, each
+        version listed below can be used to incrementally build the schema.
+    
+            ////////////////////////////////////////////////////////////////////
+            CREATE TABLE person (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                is_verified     CHAR(1) NOT NULL DEFAULT 'F',
+                created_on      TIMESTAMP NOT NULL,
+
+                password        VARCHAR(64) NOT NULL,
+
+                email           VARCHAR(128) NOT NULL UNIQUE,
+
+                secret_key      VARCHAR(24) NOT NULL,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+            CREATE INDEX idx_person_version ON person(version);;
+            CREATE INDEX idx_person_password ON person(password);;
+            CREATE INDEX idx_person_is_verified ON person(is_verified);;
+            CREATE INDEX idx_person_created_on ON person(created_on);;
+
+            ////////////////////////////////////////////////////////////////////
+            CREATE TABLE corkboard (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                owner_id        BIGINT NOT NULL REFERENCES person,
+
+                label           VARCHAR(64) NOT NULL,
+                is_focused      CHAR(1) NOT NULL DEFAULT 'F',
+
+                weight          SMALLINT NOT NULL,
+
+                UNIQUE (owner_id, label),
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+            ALTER TABLE corkboard ADD CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES person(id);;
+
+            ////////////////////////////////////////////////////////////////////
+            CREATE TABLE note (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                corkboard_id    BIGINT NOT NULL REFERENCES corkboard,
+
+                content         TEXT NOT NULL,
+
+                x               SMALLINT NOT NULL,
+                y               SMALLINT NOT NULL,
+                width           SMALLINT NOT NULL,
+                height          SMALLINT NOT NULL,
+
+                skin            VARCHAR(24) NOT NULL DEFAULT 'yellow',
+                is_collapsed    CHAR(1) NOT NULL DEFAULT 'F',
+                z_index         BIGINT NOT NULL,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+
+            CREATE INDEX idx_note_version ON note(version);;
+            CREATE INDEX idx_note_z_index ON note(z_index);;
+            ALTER TABLE note ADD CONSTRAINT fk_corkboard_id FOREIGN KEY (corkboard_id) REFERENCES corkboard(id);;
+
+            ////////////////////////////////////////////////////////////////////
+            CREATE TABLE verification_token (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                owner_id        BIGINT NOT NULL REFERENCES person,
+                token           CHAR(128) NOT NULL,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+
+            CREATE INDEX idx_verification_token_version ON verification_token(version);;
+            CREATE INDEX idx_verification_token_token ON verification_token(token);;
+            ALTER TABLE verification_token ADD CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES person(id);;
+
+            ////////////////////////////////////////////////////////////////////
+            CREATE TABLE configuration_parameter (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                label           VARCHAR(64) NOT NULL UNIQUE,
+                value           VARCHAR(4000),
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+
+            CREATE INDEX idx_configuration_parameter_version ON configuration_parameter(version);;
+            CREATE INDEX idx_configuration_parameter_label ON configuration_parameter(label);;
+    -->
+    <version id="1">
+        <sql description="Create the user table"><![CDATA[
+            CREATE TABLE person (
+                id                  BIGINT NOT NULL AUTO_INCREMENT,
+                version             INTEGER NOT NULL,
+                hashcode            INTEGER NOT NULL,
+
+                is_verified         CHAR(1) NOT NULL DEFAULT 'F',
+                created_on          TIMESTAMP NOT NULL,
+
+                -- stores the sha1 hash of the password.
+                password        CHAR(40) NOT NULL,
+
+                email           VARCHAR(256) NOT NULL UNIQUE,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+        ]]></sql>        
+        <sql description="Create indexes on user table"><![CDATA[
+            -- create indexes on columns which will be frequently used in
+            -- where clauses.
+            CREATE INDEX idx_person_version ON person(version);;            
+            CREATE INDEX idx_person_password ON person(password);;
+            CREATE INDEX idx_person_is_verified ON person(is_verified);;
+            CREATE INDEX idx_person_created_on ON person(created_on);;
+        ]]></sql>        
+    </version>
+    <version id="2">
+        <sql description="Create the corkboard table"><![CDATA[
+            CREATE TABLE corkboard (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                owner_id        BIGINT NOT NULL REFERENCES person,
+
+                label           VARCHAR(128) NOT NULL,
+                is_focused      CHAR(1) NOT NULL DEFAULT 'F',
+
+                weight          SMALLINT NOT NULL,
+
+                UNIQUE (owner_id, label),
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+        ]]></sql>
+    </version>
+    <version id="3">
+        <sql description="Create the note table"><![CDATA[
+            CREATE TABLE note (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                corkboard_id    BIGINT NOT NULL REFERENCES corkboard,
+
+                content         TEXT NOT NULL,
+
+                x               SMALLINT NOT NULL,
+                y               SMALLINT NOT NULL,
+                width           SMALLINT NOT NULL,
+                height          SMALLINT NOT NULL,
+
+                skin            VARCHAR(24) NOT NULL DEFAULT 'yellow',
+                is_collapsed    CHAR(1) NOT NULL DEFAULT 'F',
+                z_index         BIGINT NOT NULL,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+        ]]></sql>
+        <sql description="Create indexes on note table"><![CDATA[
+            CREATE INDEX idx_note_version ON note(version);;
+            CREATE INDEX idx_note_z_index ON note(z_index);;
+        ]]></sql>
+    </version>
+    <version id="4">
+        <sql description="Create the verification_token table"><![CDATA[
+            CREATE TABLE verification_token (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                owner_id        BIGINT NOT NULL REFERENCES person,
+                token           CHAR(40) NOT NULL,
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+        ]]></sql>
+        <sql description="Create indexes on the verification_token table"><![CDATA[
+            CREATE INDEX idx_verification_token_version ON verification_token(version);;
+            CREATE INDEX idx_verification_token_token ON verification_token(token);;
+        ]]></sql>
+    </version>
+    <version id="5">
+        <sql description="Create configuration parameters table"><![CDATA[
+            CREATE TABLE configuration_parameter (
+                id              BIGINT NOT NULL AUTO_INCREMENT,
+                version         INTEGER NOT NULL,
+                hashcode        INTEGER NOT NULL,
+
+                label           VARCHAR(64) NOT NULL UNIQUE,
+                value           VARCHAR(4000),
+
+                PRIMARY KEY (id)
+            ) ENGINE=InnoDB;;
+        ]]></sql>
+        <sql description="Create indexes for configuration parameter table."><![CDATA[
+            CREATE INDEX idx_configuration_parameter_version ON configuration_parameter(version);;
+            CREATE INDEX idx_configuration_parameter_label ON configuration_parameter(label);;
+        ]]></sql>
+        <sql description="Insert default values for configuration."><![CDATA[
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 10, 'mail.enabled', 'false');;
+
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 20, 'mail.smtp.host', 'localhost');;
+
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 30, 'mail.smtp.port', '25');;
+
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 40, 'mail.smtp.user', NULL);;
+
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 50, 'mail.from', 'admin@metro-six.com');;
+
+            INSERT INTO configuration_parameter (version, hashcode, label, value)
+                VALUES (0, 60, 'urlbase', 'http://127.0.0.1:8080/');;
+        ]]></sql>
+    </version>
+    <version id="6">
+        <sql description="Add skey column to the person data."><![CDATA[
+            ALTER TABLE person ADD COLUMN secret_key VARCHAR(24);;
+
+            ALTER TABLE person MODIFY COLUMN password VARCHAR(64) NOT NULL;;
+        ]]></sql>
+    </version>
+    <version id="7">
+        <sql description="Add NOT NULL constraint to the secret_key column of person."><![CDATA[
+            ALTER TABLE person MODIFY COLUMN secret_key VARCHAR(24) NOT NULL;;
+        ]]></sql>
+        <sql description="Add is_encrypted column to the note table."><![CDATA[
+            ALTER TABLE note ADD COLUMN is_encrypted CHAR(1) NOT NULL DEFAULT 'F';;
+        ]]></sql>
+    </version>
+    <version id="8">
+        <sql description="Add foreign keys to the database, apparently MySQL doesn't respect the REFERENCES clause."><![CDATA[
+            ALTER TABLE corkboard ADD CONSTRAINT fk_corkboard_owner_id FOREIGN KEY (owner_id) REFERENCES person(id);;
+            ALTER TABLE note ADD CONSTRAINT fk_note_corkboard_id FOREIGN KEY (corkboard_id) REFERENCES corkboard(id);;
+            ALTER TABLE verification_token ADD CONSTRAINT fk_verification_token_owner_id FOREIGN KEY (owner_id) REFERENCES person(id);;
+        ]]></sql>
+        <sql description="Drop is_encrypted column on a note."><![CDATA[
+            ALTER TABLE note DROP COLUMN is_encrypted;
+        ]]></sql>
+    </version>
+</schema>

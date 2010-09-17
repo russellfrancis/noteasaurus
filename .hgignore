@@ -1,0 +1,10 @@
+syntax: regexp
+
+^build.properties$
+^catalog.xml$
+^lib$
+^nbproject$
+^dist$
+^build$
+^stage$
+^cobertura.ser$

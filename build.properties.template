@@ -1,0 +1,6 @@
+# useful properties for ant tasks that will override props defined in build.xml
+use.mysql=1
+db.username=root
+db.superuser=root
+db.superpassword=password
+db.password=password

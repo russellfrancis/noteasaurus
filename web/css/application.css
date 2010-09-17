@@ -1,0 +1,443 @@
+body {
+	font-family: Arial , Helvetica , Geneva , sans;
+	margin: 0;
+	padding: 0;
+	font-size: .8em;
+	background-image: url('../asset/gfx/images/notes-logo.gif');
+	background-repeat: no-repeat;
+	background-position: 20px 50px;
+	color: #333;
+}
+a {
+	color: #333;
+}
+
+a:active
+{
+outline: none;
+
+}
+
+a:focus
+{
+-moz-outline-style: none;
+}
+
+/* general layout elements */
+
+
+
+.button {
+	display:block;
+	padding: 3px 5px 5px 5px;
+	text-decoration : none;
+	border: solid 1px #ccc;
+	background-color : #efefef;
+}
+
+
+/* Load Window */
+
+#loadWindow {
+    /*
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    width: 465px;
+    height: 8px;
+    */
+}
+
+
+
+#loadWindow #progressbarContainer {
+	height : 8px;
+	border: solid 1px #333;
+	background-color : #efefef;
+	margin: 40px 35px;
+	overflow: hidden;
+}
+
+#loadWindow #progressBar {
+	height : 8px;
+	background-color : #FBA662;
+	width : 0%;
+}
+
+#loadWindow p {
+	font-size: .7em;
+}
+
+
+
+#nav-strip {
+	position: absolute;
+	left: 40px;
+	bottom: 40px;
+}
+
+
+
+
+.note-box {
+	background-image: url( '../asset/gfx/images/note.png' );
+    background-position:center bottom;
+	background-repeat:no-repeat;
+	margin:150px auto -1px;
+	min-height:270px;
+	width:390px;
+	position: relative;
+	padding: 0 0 100px;
+}
+
+
+.note-box h1 {
+	font-size: 1em;
+	font-family : 'Chaparral Pro' , Palatino , Garamond , Serif;
+	font-weight: normal;
+	background-image: url( '../asset/gfx/images/note.png' );
+	background-position: top;
+	padding: 35px 0 0 35px;
+	font-size: 2em;
+	font-weight: normal;
+}
+
+.note-box h2 {
+    padding: 35px 0 0 70px;
+    font-weight: normal;
+	font-family : 'Chaparral Pro' , Palatino , Garamond , Serif;
+}
+
+.note-box #register-success {
+    margin: -47px auto -1px auto;
+}
+
+.note-box table {
+	margin: 20px auto -1px auto;
+}
+
+
+
+.note-box .button {
+	background-color: #FBA662;	
+	color: #fff;
+	font-weight: bold;
+	width: 70px;
+	text-align: center;
+	float: right;
+}
+
+.note-box .button:hover {
+	background-color: #DB8845;
+}
+
+.note-box p {
+	padding:15px 40px 0 70px;
+}
+
+.note-box p a {
+
+}
+
+#verify p {
+	padding:15px 40px 0 35px;
+}
+
+#verify .button {
+	float: none;	
+}
+
+/* App control bar */
+
+#controlbar {
+	height : 30px;
+	padding: 0;
+	border-bottom : solid 1px #ccc;
+	background-color : #efefef;
+}
+
+#controlbar ul {
+	margin: 0 0 0 5px;
+	padding : 0;
+	list-style-type: none;	
+}
+
+#controlbar ul li {
+	display : inline;	
+}
+
+#controlbar ul li a {
+	
+	display:block;
+	float : left;
+	border: solid 1px #ccc;
+	background-color: #fff;
+	overflow: hidden;
+	margin: 2px 4px 0 0;
+	background-repeat: no-repeat;	
+	background-position: 2px 5px; 
+	padding: 3px 4px 3px 25px;	
+	font-size: 1.2em;
+	text-decoration: none;
+}
+
+#controlbar ul li span {
+    display: block;
+    float: left;
+    overflow: hidden;
+	padding: 6px 4px 2px 10px;
+	font-size: 1.2em;
+}
+
+#controlbar ul li a:hover {
+	border: solid 1px #666;
+}
+
+#controlbar ul li #cbar-new-note-btn {
+	background-image : url( ../asset/gfx/icons/silk/note_add.png );
+}
+
+#controlbar ul li #cbar-note-view-btn {
+	background-image : url( ../asset/gfx/icons/silk/application_view_tile.png );
+}
+
+#controlbar ul li #cbar-list-view-btn {
+	background-image : url( ../asset/gfx/icons/silk/application_view_list.png );
+}
+
+#controlbar ul li #cbar-logout-btn {
+	background-image : url( ../asset/gfx/icons/silk/door_out.png );
+}
+
+#controlbar ul li #cbar-account-settings-btn {
+    background-image : url( ../asset/gfx/icons/silk/application_key.png );
+}
+
+#controlbar ul li #cbar-new-corkboard-btn {
+	float: right;
+	margin-right: 10px;	
+	padding-left: 28px;
+	background-position: 2px 2px;
+	background-image: url( ../asset/gfx/icons/tango/22x22/actions/folder-new.png);
+}
+
+/* Corkboard */
+
+#corkboard-panel {
+	width: 130px;
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	padding: 0;
+}
+
+#add-corkboard-btn {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	text-indent: 25px;	
+	border: solid 1px #D2DFEA;
+	font-size: .7em;
+	text-decoration: none;
+	background-image: url( ../asset/gfx/icons/tango/22x22/actions/folder-new.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px; 
+}
+
+#add-corkboard-btn:hover {
+	background-color : #D2DFEA;
+}
+
+#corkboard-list {
+	margin: 0;
+	padding: 0 10px;
+	list-style-type: none;	
+}
+
+.corkboard  {
+	position: relative;
+	margin-top: 10px;
+}
+
+.corkboard-edit-panel {
+	display: none;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;	
+	position: relative;
+	top: -10px;
+}
+
+.corkboard-edit-panel input {
+	width: 110px;
+	text-align: center;
+}
+
+.corkboard-edit-btn {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 10px;
+	width: 18px;
+	height: 18px;
+	overflow: hidden;
+	text-indent: -999px;
+	background-image: url( ../asset/gfx/icons/silk/cog.png );
+	background-repeat: no-repeat;
+}
+
+.corkboard-btn {
+	display: block;
+	background-image: url( ../asset/gfx/icons/tango/32x32/places/folder.png );
+	background-repeat: no-repeat;
+	background-position: top center;
+	padding-top: 30px;
+	text-align: center;
+	overflow: hidden;
+	text-decoration: none;
+}
+
+.corkboard-btn:hover {
+	background-color: #efefef;
+}	
+	
+.droppable-hover .corkboard-btn {
+	background-image: url( ../asset/gfx/icons/tango/32x32/status/folder-drag-accept.png );
+	background-color: #efefef;
+}
+
+.selected .corkboard-btn {
+	background-image: url( ../asset/gfx/icons/tango/32x32/status/folder-open.png );
+	background-color: transparent;
+}
+
+/* Notes */
+
+#corkboard-area {
+	position: relative;	
+}
+
+.note {
+	position: absolute;	
+	border-style: solid;
+	border-width: 1px;
+	color: #000;
+}
+
+
+
+#corkboard-area .focused {
+	border-color: #666666;	
+}
+
+.note-control-bar {
+	height: 20px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;	
+}
+.note-control-bar ul {
+	margin: 0;
+	padding: 2px 2px 0 1px;
+	list-style-type: none;	
+}
+
+.note-control-bar ul li {
+	display:inline;
+	position: relative;
+}
+
+.note a.note-btn {
+	color: #333;
+	float: left;
+	height: 12px;
+	width: 13px;
+	padding: 1px;
+	text-decoration: none;
+	font-size: 11px;
+	text-align: center;	
+	overflow: hidden;
+	background-repeat: no-repeat;
+	
+}
+
+.note a.delete-note-btn {
+	border-width: 1px;
+	border-style: solid;
+	float: right;	
+	font-weight: bold;
+}
+
+.note a.delete-note-btn:hover {
+	float: right;
+	
+}
+
+.color-note-btn {
+	text-indent: -999px;
+	background-image : url( ../asset/gfx/icons/silk/color_swatch.png );	
+	
+}
+
+.color-panel {
+	position: absolute;
+	top: 15px;
+	left: -17px;
+	width: 45px;
+}
+
+.color-btn {
+	display: block;
+	float: left;
+	width : 15px;
+	height : 15px;
+	margin: 2px 0 0 2px;
+	border-style: solid;
+	border-width: 1px;	
+	overflow: hidden;
+	text-indent: -999px;
+}
+
+.note-content {
+}
+
+.note textarea {
+	border-width: 1px;
+	font-size: 1em;
+	background-color: transparent;
+	font-family: Arial , Helvetica , Geneva , sans;
+}
+
+.note h1, .note h2, .note h3, .note h4, .note h5, .note h6 {
+	margin: 0;
+	padding: 0;	
+	display: inline;
+}
+
+.note a {
+	color: blue;	
+}
+
+/* notification */
+
+#notification {
+	position: fixed;
+	top: 0px;
+	left: 50%;
+	width: 250px;
+	padding: 10px;
+	margin-left: -125px;
+	background-color: #ECDD4A;
+	z-index: 9999;
+}
+
+#notification.error-notification {
+	background-color: #F96D62;
+}
+
+.error {
+    color: red;
+}
+
+input.error {
+    background-color: #FFD4D4;
+}
