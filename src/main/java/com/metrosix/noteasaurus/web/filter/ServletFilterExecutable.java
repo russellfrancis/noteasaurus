@@ -9,8 +9,7 @@ import javax.servlet.ServletResponse;
  * This provides a class which implements the Executable interface and allows for calling a chained ServletFilter via
  * the Executable mechanism.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ServletFilterExecutable.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class ServletFilterExecutable implements Executable {
 
@@ -35,6 +34,7 @@ public class ServletFilterExecutable implements Executable {
     /**
      * Execute the configured FilterChain.
      */
+    @Override
     public void execute() throws Exception {
         getChain().doFilter(getRequest(), getResponse());
     }

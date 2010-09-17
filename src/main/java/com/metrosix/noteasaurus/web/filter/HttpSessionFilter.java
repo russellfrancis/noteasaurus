@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
  * that is expected to handle it.  Some portions of the application may expect
  * that the session has been initialized.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HttpSessionFilter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HttpSessionFilter extends AbstractFilter {
     /**
@@ -25,6 +24,7 @@ public class HttpSessionFilter extends AbstractFilter {
      * @param res The {@link ServletResponse} used to respond to this web request.
      * @param chain The filter chain that we are executing within.
      */
+    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException
     {
         HttpServletRequest request = (HttpServletRequest)req;

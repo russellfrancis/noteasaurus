@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.security;
 
-import com.metrosix.noteasaurus.security.AnonymousSecurityPrincipal;
 import com.metrosix.noteasaurus.domain.Corkboard;
 import com.metrosix.noteasaurus.domain.Note;
 import com.metrosix.noteasaurus.domain.Person;
@@ -10,8 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: AnonymousSecurityPrincipalTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class AnonymousSecurityPrincipalTest {
 

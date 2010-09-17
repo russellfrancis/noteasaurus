@@ -12,8 +12,7 @@ import javax.servlet.ServletResponse;
  * a request.  It is also responsible for removing any SecurityPrincipal's which have been
  * bound to the SecurityPrincipalService through the life of the request.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SecurityPrincipalFilter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SecurityPrincipalFilter extends AbstractFilter {
 
@@ -25,6 +24,7 @@ public class SecurityPrincipalFilter extends AbstractFilter {
      * @param response The ServletResponse used to send a response to the client.
      * @param chain The FilterChain to execute next.
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
     throws IOException, ServletException
     {

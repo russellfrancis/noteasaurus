@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.security;
 
-import com.metrosix.noteasaurus.security.SystemSecurityPrincipal;
 import com.metrosix.noteasaurus.domain.Person;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,8 +8,7 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SystemSecurityPrincipalTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SystemSecurityPrincipalTest {
     @Test

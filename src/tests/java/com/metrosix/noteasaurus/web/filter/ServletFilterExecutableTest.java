@@ -1,6 +1,5 @@
 package com.metrosix.noteasaurus.web.filter;
 
-import com.metrosix.noteasaurus.web.filter.ServletFilterExecutable;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -8,8 +7,7 @@ import org.junit.Test;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ServletFilterExecutableTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class ServletFilterExecutableTest {
 

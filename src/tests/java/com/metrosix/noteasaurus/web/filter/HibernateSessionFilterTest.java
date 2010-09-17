@@ -1,7 +1,5 @@
 package com.metrosix.noteasaurus.web.filter;
 
-import com.metrosix.noteasaurus.web.filter.HibernateSessionFilter;
-import com.metrosix.noteasaurus.web.filter.AbstractFilter;
 import com.metrosix.noteasaurus.hibernate.Executable;
 import com.metrosix.noteasaurus.hibernate.HibernateSessionWrapper;
 import java.io.IOException;
@@ -15,8 +13,7 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HibernateSessionFilterTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HibernateSessionFilterTest {
 

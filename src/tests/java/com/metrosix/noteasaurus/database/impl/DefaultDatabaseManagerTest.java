@@ -1,8 +1,6 @@
 package com.metrosix.noteasaurus.database.impl;
 
-import com.metrosix.noteasaurus.database.impl.DefaultDatabaseManager;
 import com.metrosix.noteasaurus.database.ConnectionManager;
-import com.metrosix.noteasaurus.database.DatabaseManager;
 import com.metrosix.noteasaurus.database.PersistenceManager;
 import com.metrosix.noteasaurus.database.SchemaManager;
 import java.sql.Connection;
@@ -14,8 +12,7 @@ import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultDatabaseManagerTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultDatabaseManagerTest {
 

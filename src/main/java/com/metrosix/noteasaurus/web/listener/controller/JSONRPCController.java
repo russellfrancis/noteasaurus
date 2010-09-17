@@ -22,11 +22,10 @@ import org.json.JSONException;
 import org.picocontainer.PicoContainer;
 
 /**
- * This acts as a controller for our webservice.  It handles incoming requests and delegates the response
+ * This acts as a controller for our web service.  It handles incoming requests and delegates the response
  * to the appropriate handler.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONRPCController.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONRPCController extends HttpServlet {
 

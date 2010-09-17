@@ -5,8 +5,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import java.util.Collection;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SecurityDeniedException.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SecurityDeniedException extends ProcedureException {
 

@@ -10,8 +10,7 @@ import org.picocontainer.PicoContainer;
  * This is an abstract filter implementation which allows derived classes to
  * not implement the init and destroy methods of the filter interface.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: AbstractFilter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 abstract public class AbstractFilter implements Filter {
 
@@ -21,6 +20,7 @@ abstract public class AbstractFilter implements Filter {
      * Invoked once upon filter initialization.
      * @param filterConfig The {@link FilterConfig} for this filter instance.
      */
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException
     {
         setPicoContainer(PicoContainerFactory.getPicoContainer());

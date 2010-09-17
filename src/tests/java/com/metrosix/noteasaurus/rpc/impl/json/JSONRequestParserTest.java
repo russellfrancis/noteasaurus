@@ -1,23 +1,17 @@
 package com.metrosix.noteasaurus.rpc.impl.json;
 
-import com.metrosix.noteasaurus.rpc.impl.json.JSONRequestParser;
 import com.metrosix.noteasaurus.rpc.proc.impl.request.ProcedureCallRequest;
-import com.metrosix.noteasaurus.util.PicoContainerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
 import org.junit.Test;
-import org.picocontainer.MutablePicoContainer;
 import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONRequestParserTest.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONRequestParserTest {
 

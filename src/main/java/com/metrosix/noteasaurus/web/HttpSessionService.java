@@ -7,8 +7,7 @@ import javax.servlet.http.HttpSession;
  * executing Thread and allowing that HttpSession instance to be shared among different parts of the system.  It does
  * require that a users request be satisfied in a single thread.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HttpSessionService.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HttpSessionService {
     static private final ThreadLocal httpSession = new ThreadLocal() {

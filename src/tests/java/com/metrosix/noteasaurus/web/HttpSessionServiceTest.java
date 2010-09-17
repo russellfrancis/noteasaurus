@@ -1,13 +1,12 @@
 package com.metrosix.noteasaurus.web;
 
-import com.metrosix.noteasaurus.web.HttpSessionService;
 import javax.servlet.http.HttpSession;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HttpSessionServiceTest {
 

@@ -1,8 +1,7 @@
 package com.metrosix.noteasaurus.util;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: Pair.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class Pair<K,V> {
     private K key;

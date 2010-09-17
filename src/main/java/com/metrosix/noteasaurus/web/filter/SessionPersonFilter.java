@@ -18,8 +18,7 @@ import org.hibernate.Session;
  * This ServletFilter is used to associate the Person/SecurityPrincipal who is making
  * the request with the SecurityPrincipalService.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SessionPersonFilter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SessionPersonFilter extends AbstractFilter {
 
@@ -43,6 +42,7 @@ public class SessionPersonFilter extends AbstractFilter {
      * @param resp The ServletResponse instance for this request.
      * @param chain The FilterChain which allows us to invoke the next filter in the chain.
      */
+    @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
     throws IOException, ServletException
     {

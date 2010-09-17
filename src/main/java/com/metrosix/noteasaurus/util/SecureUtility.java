@@ -10,9 +10,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/**
- * @version $Id: SecureUtility.java 247 2010-08-07 23:15:10Z adam $
- */
 public class SecureUtility {
 
     public byte[] generateAESKey(int keysize) throws NoSuchAlgorithmException, InvalidKeyException {

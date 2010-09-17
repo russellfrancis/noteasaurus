@@ -3,8 +3,7 @@ package com.metrosix.noteasaurus.security;
 import java.util.Collection;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: SystemSecurityPrincipal.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class SystemSecurityPrincipal implements SecurityPrincipal {
     public String getName() {
