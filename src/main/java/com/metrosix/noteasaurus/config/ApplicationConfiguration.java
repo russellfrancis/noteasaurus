@@ -5,8 +5,7 @@ import org.picocontainer.Startable;
 /**
  * This class defines an interface for the ApplicationConfiguration instance.
  * 
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: ApplicationConfiguration.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface ApplicationConfiguration extends Startable {
     

@@ -19,8 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Adam M. Dutko (dutko.adam@gmail.com)
- * @version $Id: RegisterPersonProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Adam M. Dutko (adam@metro-six.com)
  */
 @AssertSecurity(canRead={Person.class},canWrite={})
 public class RegisterPersonProcedure extends AbstractProcedure {

@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
  * The file is searched according to the rules of the {@see Class#getResourceAsStream(String)} 
  * method.
  * 
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: NonVolatileApplicationConfiguration.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class NonVolatileApplicationConfiguration implements ApplicationConfiguration {
     static private final Logger log = LoggerFactory.getLogger(NonVolatileApplicationConfiguration.class);

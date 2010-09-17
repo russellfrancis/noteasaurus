@@ -15,8 +15,7 @@ import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: VerificationToken.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @Entity
 @Table(name="verification_token")

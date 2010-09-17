@@ -30,8 +30,7 @@ import org.json.JSONString;
  * This class represents a Corkboard which is a logical container for Notes.  It is a persistent class whose state is
  * persisted in the configured database.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: Corkboard.java 251 2010-08-08 00:03:00Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @Entity
 @Table(name="corkboard")

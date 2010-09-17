@@ -8,8 +8,7 @@ import org.hibernate.Transaction;
 /**
  * This interface defines a manager which controls access to our persistence mechanism.
  * 
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: PersistenceManager.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface PersistenceManager {
     

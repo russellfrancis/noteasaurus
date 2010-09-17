@@ -6,8 +6,7 @@ import com.metrosix.noteasaurus.rpc.proc.AssertSecurity;
 import com.metrosix.noteasaurus.security.SecurityPrincipal;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: RetrieveCurrentUserProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={Person.class},canWrite={})
 public class RetrieveCurrentUserProcedure extends AbstractProcedure {

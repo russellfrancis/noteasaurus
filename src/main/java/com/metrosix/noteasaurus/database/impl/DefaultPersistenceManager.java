@@ -31,8 +31,7 @@ import org.hibernate.metadata.ClassMetadata;
 /**
  * This is a default persistence manager implementation intended to be used with Hibernate.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultPersistenceManager.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultPersistenceManager implements PersistenceManager {
 

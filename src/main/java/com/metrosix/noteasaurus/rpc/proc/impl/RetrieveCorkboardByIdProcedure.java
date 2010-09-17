@@ -11,8 +11,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: RetrieveCorkboardByIdProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={Corkboard.class},canWrite={})
 public class RetrieveCorkboardByIdProcedure extends AbstractProcedure {
@@ -23,6 +22,7 @@ public class RetrieveCorkboardByIdProcedure extends AbstractProcedure {
         super(persistenceManager);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) throws ProcedureException {
         Session session = getPersistenceManager().getSession();
         Corkboard corkboard = (Corkboard)session.get(Corkboard.class, getId());

@@ -9,8 +9,7 @@ import java.nio.charset.Charset;
 /**
  * This implements a ResponseFormatter class which will format a response into a JSON string.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONResponseFormatter.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONResponseFormatter implements ResponseFormatter {
 
@@ -22,6 +21,7 @@ public class JSONResponseFormatter implements ResponseFormatter {
      * @return An InputStream which can be used to read the JSON formatted string which represents the provided
      * response instance.
      */
+    @Override
     public InputStream format(ProcedureCallResponse response) {
         if (response == null) {
             throw new IllegalArgumentException("The parameter response must be non-null.");
@@ -34,6 +34,7 @@ public class JSONResponseFormatter implements ResponseFormatter {
      * 
      * @return A String representing the mimetype which should be used to interpret this response.
      */
+    @Override
     public String getContentType() {
         return "application/json";
     }

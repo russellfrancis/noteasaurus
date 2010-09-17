@@ -16,8 +16,7 @@ import org.json.JSONObject;
  * This class implements a RequestParser capable of reading JSON formatted requests and creating an associated
  * ProcedureCallRequest object from the input.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: JSONRequestParser.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class JSONRequestParser implements RequestParser {
 

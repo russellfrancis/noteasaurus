@@ -7,8 +7,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import java.util.Map;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: Procedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface Procedure extends SecuredExecutable {
     public void assignArguments(Map<String,Object> arguments) throws ArgumentException;

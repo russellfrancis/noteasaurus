@@ -11,8 +11,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DeleteNoteProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={},canWrite={Note.class})
 public class DeleteNoteProcedure extends AbstractProcedure {
@@ -22,6 +21,7 @@ public class DeleteNoteProcedure extends AbstractProcedure {
         super(persistenceManager);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) throws ProcedureException {
         Session session = getPersistenceManager().getSession();
         Note note = (Note) session.get(Note.class, getId());

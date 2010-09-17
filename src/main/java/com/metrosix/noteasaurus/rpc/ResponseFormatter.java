@@ -4,7 +4,7 @@ import com.metrosix.noteasaurus.rpc.proc.impl.response.ProcedureCallResponse;
 import java.io.InputStream;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
+ * @author Russell Francis (russ@metro-six.com)
  */
 public interface ResponseFormatter {
     public InputStream format(ProcedureCallResponse response);

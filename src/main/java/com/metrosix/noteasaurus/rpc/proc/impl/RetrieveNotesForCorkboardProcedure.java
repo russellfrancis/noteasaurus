@@ -13,8 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: RetrieveNotesForCorkboardProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={Note.class},canWrite={})
 public class RetrieveNotesForCorkboardProcedure extends AbstractProcedure {
@@ -25,6 +24,7 @@ public class RetrieveNotesForCorkboardProcedure extends AbstractProcedure {
         super(persistenceManager);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) throws ProcedureException {
         List<Note> notes = null;
         Session session = getPersistenceManager().getSession();

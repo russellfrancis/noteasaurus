@@ -6,8 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: PostgreSQLTranslator.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class PostgreSQLTranslator extends AbstractSQLTranslator {
 
@@ -18,6 +17,7 @@ public class PostgreSQLTranslator extends AbstractSQLTranslator {
             "([\\(|,])(.*?)(?:TINY|MEDIUM|LONG)(TEXT)(.*?)([\\)|,])",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
+    @Override
     public String translateStatement(DatabaseMetaData dbmd, String sql) throws SQLException {
         sql = stripEngineClause(sql);
         sql = stripAutoIncrement(sql);

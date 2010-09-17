@@ -8,8 +8,7 @@ import com.metrosix.noteasaurus.web.HttpSessionService;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: LogoutProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={},canWrite={})
 public class LogoutProcedure extends AbstractProcedure {
@@ -27,6 +26,7 @@ public class LogoutProcedure extends AbstractProcedure {
         setSecurityPrincipalService(securityPrincipalService);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) {
         Boolean result = false;
         
