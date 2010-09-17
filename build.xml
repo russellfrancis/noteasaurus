@@ -10,7 +10,7 @@
     <property name="test.filepattern" value="*"/>
 
     <property name="ivy.version" value="2.2.0-rc1"/>
-    <property name="ivy.settings.dir" value="settings"/>
+    <property name="ivy.settings.dir" value="${ant.file.noteasaurus}/../settings"/>
     <property name="ivy.settings.file" value="ivysettings.xml"/>
 
     <property name="derby.version" value="10.5.3.0"/>
