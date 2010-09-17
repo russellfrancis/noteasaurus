@@ -8,8 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: HibernateSessionWrapper.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class HibernateSessionWrapper {
     static private final Logger log = LoggerFactory.getLogger(HibernateSessionWrapper.class);

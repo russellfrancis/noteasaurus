@@ -4,13 +4,13 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DerbyTranslator.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DerbyTranslator extends AbstractSQLTranslator {
     /**
      * @TODO -- We need to implement this to support Derby.
      */
+    @Override
     public String translateStatement(DatabaseMetaData dbmd, String sql) throws SQLException {
         return sql;
     }

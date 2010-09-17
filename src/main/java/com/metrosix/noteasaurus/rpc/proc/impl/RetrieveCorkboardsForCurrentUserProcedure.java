@@ -13,8 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: RetrieveCorkboardsForCurrentUserProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={Corkboard.class},canWrite={})
 public class RetrieveCorkboardsForCurrentUserProcedure extends AbstractProcedure {
@@ -25,6 +24,7 @@ public class RetrieveCorkboardsForCurrentUserProcedure extends AbstractProcedure
         super(persistenceManager);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) throws ProcedureException {
         List<Corkboard> corkboards = null;
         if (principal instanceof Person) {

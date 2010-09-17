@@ -18,8 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultProcedureLookup.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultProcedureLookup implements ProcedureLookup, Startable {
 
@@ -27,6 +26,7 @@ public class DefaultProcedureLookup implements ProcedureLookup, Startable {
 
     private Map<String,Class<? extends Procedure>> procedureMap;
 
+    @Override
     public void start() {
         try {
             Properties props = new Properties();
@@ -70,10 +70,12 @@ public class DefaultProcedureLookup implements ProcedureLookup, Startable {
         }
     }
 
+    @Override
     public void stop() {
         setProcedureMap(null);
     }
 
+    @Override
     public Procedure lookup(String procedureName) {
         Class<? extends Procedure> klass = getProcedureMap().get(procedureName);
         if (klass != null) {

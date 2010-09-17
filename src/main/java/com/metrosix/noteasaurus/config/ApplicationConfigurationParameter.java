@@ -3,6 +3,8 @@ package com.metrosix.noteasaurus.config;
 /**
  * This enumeration defines all of the configuration parameters which we may
  * expect to find in our configuration file.
+ *
+ * @author Russell Francis (russ@metro-six.com)
  */
 public enum ApplicationConfigurationParameter {
 

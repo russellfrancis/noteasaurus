@@ -4,8 +4,7 @@ import com.metrosix.noteasaurus.config.ApplicationConfiguration;
 import com.metrosix.noteasaurus.config.ApplicationConfigurationParameter;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultApplicationConfiguration.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultApplicationConfiguration implements ApplicationConfiguration {
 

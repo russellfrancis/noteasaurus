@@ -15,8 +15,7 @@ import org.slf4j.LoggerFactory;
  * This class implements a basic database manager which can startup and shutdown a database, this
  * is primarily used for embedded database systems such as Derby and H2.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultDatabaseManager.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultDatabaseManager implements DatabaseManager {
     

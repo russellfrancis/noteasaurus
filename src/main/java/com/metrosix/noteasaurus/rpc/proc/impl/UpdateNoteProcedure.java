@@ -12,8 +12,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: UpdateNoteProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={},canWrite={Corkboard.class,Note.class})
 public class UpdateNoteProcedure extends AbstractProcedure {

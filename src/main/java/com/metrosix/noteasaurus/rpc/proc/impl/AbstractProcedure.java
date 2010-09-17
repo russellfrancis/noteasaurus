@@ -13,8 +13,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: AbstractProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 abstract public class AbstractProcedure implements Procedure {
     private PersistenceManager persistenceManager;
@@ -23,6 +22,7 @@ abstract public class AbstractProcedure implements Procedure {
         setPersistenceManager(persistenceManager);
     }
 
+    @Override
     public boolean canExecute(SecurityPrincipal principal) {
         AssertSecurity assertSecurity = getClass().getAnnotation(AssertSecurity.class);
         if (assertSecurity == null) {
@@ -46,6 +46,7 @@ abstract public class AbstractProcedure implements Procedure {
         return true;
     }
 
+    @Override
     public void assignArguments(Map<String,Object> arguments)
     throws ArgumentException
     {

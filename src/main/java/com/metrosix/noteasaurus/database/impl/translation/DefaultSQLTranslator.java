@@ -5,8 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultSQLTranslator.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultSQLTranslator implements SQLTranslator {
 
@@ -24,6 +23,7 @@ public class DefaultSQLTranslator implements SQLTranslator {
         setDerbyTranslator(derbyTranslator);
     }
 
+    @Override
     public String translateStatement(DatabaseMetaData dbmd, String sql) throws SQLException {
         if (isMySQL(dbmd)) {
             return getMysqlTranslator().translateStatement(dbmd, sql);

@@ -5,8 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: AbstractSQLTranslator.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 abstract public class AbstractSQLTranslator implements SQLTranslator {
     static private final Pattern createTablePattern = 

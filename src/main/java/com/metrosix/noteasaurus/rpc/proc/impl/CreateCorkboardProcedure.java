@@ -11,8 +11,7 @@ import com.metrosix.noteasaurus.security.SecurityPrincipal;
 import com.metrosix.noteasaurus.util.PicoContainerFactory;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: CreateCorkboardProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={},canWrite={Corkboard.class})
 public class CreateCorkboardProcedure extends AbstractProcedure {
@@ -34,6 +33,7 @@ public class CreateCorkboardProcedure extends AbstractProcedure {
         return principal instanceof Person && super.canExecute(principal);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) 
     throws ProcedureException
     {

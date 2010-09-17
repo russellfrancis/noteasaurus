@@ -20,8 +20,7 @@ import org.hibernate.validator.InvalidValue;
 import org.hibernate.validator.NotNull;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: AbstractEntity.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @MappedSuperclass
 abstract public class AbstractEntity<T extends AbstractEntity> implements Serializable {

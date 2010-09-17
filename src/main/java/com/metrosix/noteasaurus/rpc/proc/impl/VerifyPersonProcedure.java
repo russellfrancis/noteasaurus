@@ -14,8 +14,7 @@ import org.hibernate.Session;
 import org.picocontainer.PicoContainer;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: VerifyPersonProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={Person.class},canWrite={})
 public class VerifyPersonProcedure extends AbstractProcedure {

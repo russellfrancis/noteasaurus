@@ -30,8 +30,7 @@ import org.xml.sax.SAXException;
  * This class implements a SchemaManager which can be used to apply schema versions to a configured
  * database.
  *
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: DefaultSchemaManager.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 public class DefaultSchemaManager implements SchemaManager {
     static private final Logger log = LoggerFactory.getLogger(DefaultSchemaManager.class);

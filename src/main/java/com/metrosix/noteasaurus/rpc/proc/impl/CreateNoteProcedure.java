@@ -13,8 +13,7 @@ import com.metrosix.noteasaurus.util.PicoContainerFactory;
 import org.hibernate.Session;
 
 /**
- * @author Russell Francis (russell.francis@gmail.com)
- * @version $Id: CreateNoteProcedure.java 247 2010-08-07 23:15:10Z adam $
+ * @author Russell Francis (russ@metro-six.com)
  */
 @AssertSecurity(canRead={},canWrite={Note.class,Corkboard.class})
 public class CreateNoteProcedure extends AbstractProcedure {
@@ -31,6 +30,7 @@ public class CreateNoteProcedure extends AbstractProcedure {
         super(persistenceManager);
     }
 
+    @Override
     public Object executeAs(SecurityPrincipal principal) throws ProcedureException {
         Session session = getPersistenceManager().getSession();
         Corkboard corkboard = (Corkboard) session.get(Corkboard.class, getCorkboardId());
