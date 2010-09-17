@@ -79,7 +79,7 @@
         <fileset dir="${lib.deploytime.dir}" includes="*.jar"/>
     </path>
 
-    <!-- ============================================================ -->
+    <!-- =========================================================================================================== -->
     <target name="usage">
             <!-- For readability, don't extend beyond this line.  The length of a typical terminal window. -->
         <echo message="======================================================================"/>
@@ -164,10 +164,10 @@
         <echo message=""/>
     </target>
 
-    <!-- =================================================================== -->
-    <target name="production-deploy" depends="clean,configure-prod-db,dist,redist,tomcat-deploy">
-    </target>
+    <!-- =========================================================================================================== -->
+    <target name="production-deploy" depends="clean,configure-prod-db,dist,redist,tomcat-deploy"/>
 
+    <!-- =========================================================================================================== -->
     <target name="configure-prod-db">
         <fail unless="prod.db.url" message="You must define the prod.db.url property in build.properties."/>
         <fail unless="prod.db.driver" message="You must define the prod.db.driver property in build.properties."/>
@@ -182,10 +182,10 @@
         <property name="output.file.war" value="${dist.dir}/ROOT.war"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="dist-all" depends="dist,generate-docs"/>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="dist" depends="stage-war">
         <mkdir dir="${dist.dir}"/>
         <war destfile="${dist.dir}/${project.name}-${project.version}.war"
@@ -196,7 +196,7 @@
         </war>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <!-- This is a useful utility for taking a distributable .war and rewriting
          its configuration parameters so that it can connect to a different database. -->
     <target name="redist" depends="install-ant-contrib,configure-db,resolve-runtime">
@@ -256,7 +256,7 @@
         <delete dir="${tmp.dir}"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="stage-war" depends="configure-db,compile">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${stage.dir}"/>
@@ -328,7 +328,7 @@
         </parallel>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="copy-js-and-css-withcompression" depends="install-yuicompressor" if="use.js.compression">
         <yuicompressor todir="${stage.war.dir}">
             <fileset dir="${web.dir}">
@@ -338,9 +338,9 @@
         </yuicompressor>
     </target>
 
-    <!-- =================================================================== -->
-    <!-- This is a utility target used for compressing individual files      -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- This is a utility target used for compressing individual files                                              -->
+    <!-- =========================================================================================================== -->
 	<target name="js-compress" depends="install-yuicompressor">
         <yuicompressor todir="/tmp">
             <fileset dir="${web.dir}">
@@ -349,7 +349,7 @@
         </yuicompressor>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="copy-js-and-css-withoutcompression" unless="use.js.compression">
         <copy todir="${stage.war.dir}">
             <fileset dir="${web.dir}">
@@ -359,7 +359,7 @@
         </copy>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="compile" depends="resolve-buildtime,resolve-runtime">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.main.dir}"/>
@@ -379,10 +379,10 @@
         </javac>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="compile-tests" depends="compile-unit-tests,compile-selenium-tests"/>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="compile-unit-tests" depends="compile,resolve-testtime">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.tests.dir}"/>
@@ -409,7 +409,7 @@
         </copy>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="compile-selenium-tests" depends="compile,resolve-testtime">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.tests.dir}"/>
@@ -436,7 +436,7 @@
         </copy>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="generate-docs" depends="install-jsdoctoolkit,resolve-buildtime,resolve-runtime">
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${docs.dir}"/>
@@ -467,36 +467,36 @@
         <zip destfile="${dist.dir}/${project.name}-docs-${project.version}.zip" basedir="${docs.dir}" />
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="resolve-all" depends="resolve-runtime,resolve-buildtime,resolve-testtime,resolve-deploytime" unless="resolve.no">
         <property name="resolve.no" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="resolve-runtime" depends="install-ivy" unless="runtime.resolved">
         <ivy:retrieve pattern="${lib.runtime.dir}/[artifact]-[revision].[ext]" conf="runtime"/>
         <property name="runtime.resolved" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="resolve-buildtime" depends="install-ivy" unless="buildtime.resolved">
         <ivy:retrieve pattern="${lib.buildtime.dir}/[artifact]-[revision].[ext]" conf="buildtime"/>
         <property name="buildtime.resolved" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="resolve-testtime" depends="install-ivy" unless="testtime.resolved">
         <ivy:retrieve pattern="${lib.testtime.dir}/[artifact]-[revision].[ext]" conf="testtime"/>
         <property name="testtime.resolved" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="resolve-deploytime" depends="install-ivy" unless="deploytime.resolved">
         <ivy:retrieve pattern="${lib.deploytime.dir}/[artifact]-[revision].[ext]" conf="deploytime"/>
         <property name="deploytime.resolved" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="clean-all" depends="install-ivy,clean">
         <ivy:cleancache/>
         <parallel>
@@ -504,7 +504,7 @@
         </parallel>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="clean" depends="install-ivy">
         <parallel>
             <delete dir="${lib.runtime.dir}"/>
@@ -520,13 +520,13 @@
         </parallel>
     </target>
     
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- These targets are used to test and generate reports against the app -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- These targets are used to test and generate reports against the app                                         -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="dependency-report" depends="install-ivy,resolve-all">
         <ivy:report conf="runtime" todir="${dist.dir}/reports/dependency"/>
         <ivy:report conf="buildtime" todir="${dist.dir}/reports/dependency"/>
@@ -534,16 +534,16 @@
         <ivy:report conf="deploytime" todir="${dist.dir}/reports/dependency"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-all" depends="set-test,test-findbugs-reports,test-junit,test-selenium,generate-unittest-reports"/>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="set-test">
         <property name="db.name" value="noteasaurustest"/>
         <property name="db.username" value="noteasaurustest"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="instrument-classes" depends="stage-war,install-cobertura" unless="already.instrumented">
         <cobertura-instrument todir="${build.main.cobertura.dir}">
             <includeClasses regex=".*"/>
@@ -560,7 +560,7 @@
         <property name="already.instrumented" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="stage-selenium-war" depends="instrument-classes">
         <mkdir dir="${stage.selenium.war.dir}"/>
         <!-- Copy the staging directory -->
@@ -577,7 +577,7 @@
         </copy>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-reports-dir">
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.dir}/reports"/>
@@ -587,7 +587,7 @@
         <mkdir dir="${dist.dir}/reports/cobertura-html"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-junit" depends="set-test,instrument-classes,compile-unit-tests,create-reports-dir">
         <junit fork="true"
                forkmode="once"
@@ -611,7 +611,7 @@
         </junit>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-selenium" depends="set-test,instrument-classes,install-ant-contrib,compile-selenium-tests,create-reports-dir" unless="no.selenium">
         <!-- Start the selenium server -->
         <antcall target="start-selenium">
@@ -722,7 +722,7 @@
         </trycatch>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="start-selenium" depends="resolve-testtime">
         <property name="spawn" value="false"/>
         <java jar="${lib.testtime.dir}/selenium-server-${selenium.version}.jar" spawn="${spawn}" fork="true">
@@ -730,23 +730,23 @@
         </java>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="stop-selenium" depends="resolve-testtime">
         <get taskname="selenium-shutdown" src="http://${selenium.server.host}:${selenium.server.port}/selenium-server/driver/?cmd=shutDown" dest="stop-selenium.txt" ignoreerrors="true"/>
         <delete file="stop-selenium.txt"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-junit-reports" depends="test-junit">
         <antcall target="generate-unittest-reports"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-selenium-reports" depends="test-selenium">
         <antcall target="generate-unittest-reports"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="generate-unittest-reports" depends="install-cobertura">
         <junitreport todir="${dist.dir}/reports/junit-html">
             <fileset dir="${dist.dir}/reports/junit-xml">
@@ -766,7 +766,7 @@
         </cobertura-report>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-findbugs-reports" depends="resolve-all">
         <antcall target="test-findbugs" inheritall="true">
             <param name="findbugs.output" value="html"/>
@@ -778,7 +778,7 @@
         </antcall>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="test-findbugs" depends="stage-war,install-findbugs" unless="findbugs.${findbugs.extension}.no">
         <fail unless="findbugs.output" message="The property ${findbugs.output} must be defined."/>
         <fail unless="findbugs.extension" message="The property ${findbugs.extension} must be defined."/>
@@ -809,14 +809,14 @@
         </findbugs>
     </target>
     
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- These targets are used to start, reload and stop the embedded       -->
-    <!-- webserver for testing purposes.                                     -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- These targets are used to start, reload and stop the embedded                                               -->
+    <!-- webserver for testing purposes.                                                                             -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="start" depends="stage-war,resolve-testtime">
         <property name="spawn" value="false"/>
         <java jar="${lib.testtime.dir}/winstone-${winstone.version}.jar" spawn="${spawn}" fork="true">
@@ -826,7 +826,7 @@
         </java>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="start-app-for-selenium" depends="stage-selenium-war,resolve-testtime">
         <property name="spawn" value="false"/>
         <java jar="${lib.testtime.dir}/winstone-${winstone.version}.jar" spawn="${spawn}" fork="true" >
@@ -835,7 +835,7 @@
         </java>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="reload" depends="stage-war,resolve-testtime">
         <java classname="winstone.tools.WinstoneControl">
             <arg line="--controlPort=${project.conf.controlPort} reload:"/>
@@ -845,7 +845,7 @@
         </java>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="stop" depends="resolve-testtime">
         <java classname="winstone.tools.WinstoneControl">
             <arg line="--controlPort=${project.conf.controlPort} shutdown"/>
@@ -855,14 +855,14 @@
         </java>
     </target>
 
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- These targets are used to setup, start and reload the database      -->
-    <!-- of your choosing for testing purposes.                              -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- These targets are used to setup, start and reload the database                                              -->
+    <!-- of your choosing for testing purposes.                                                                      -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <!-- This will setup default connection parameters for the database of your choosing
 
          # ant -Duse.mysql=1 start
@@ -875,7 +875,7 @@
              is the default and will be used if no other config is provided. -->
     <target name="configure-db" depends="configure-db-mysql,configure-db-postgresql,configure-db-derby"/>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="configure-db-derby" if="use.derby" unless="derby.configured">
         <property name="db.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
         <property name="db.url" value="jdbc:derby:${java.io.tmpdir}/noteasaurusDb;create=true"/>
@@ -888,7 +888,7 @@
         <property name="derby.configured" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="configure-db-postgresql" if="use.postgresql" unless="postgresql.configured">
         <property name="db.name" value="noteasaurus"/>
         <property name="db.host" value="localhost"/>
@@ -902,7 +902,7 @@
         <property name="postgresql.configured" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="configure-db-mysql" if="use.mysql" unless="mysql.configured">
         <property name="db.name" value="noteasaurus"/>
         <property name="db.host" value="localhost"/>
@@ -916,7 +916,7 @@
         <property name="mysql.configured" value="true"/>
     </target>
 
-    <!-- ================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-db-mysql" depends="configure-db,resolve-runtime" if="use.mysql">
         <sql
             classpathref="lib.runtime.classpath"
@@ -930,7 +930,7 @@
         </sql>
     </target>
 
-    <!-- ================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-db-postgresql" depends="configure-db,resolve-runtime" if="use.postgresql">
         <sql
             autocommit="true"
@@ -945,7 +945,7 @@
         </sql>
     </target>
 
-        <!-- ================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-db-derby" depends="configure-db,resolve-runtime" if="use.derby">
         <sql classpathref="lib.testtime.classpath"
             driver="${db.driver}"
@@ -969,7 +969,7 @@
         </sql>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-test-users" depends="configure-db,resolve-runtime">
         <sql
             classpathref="lib.runtime.classpath"
@@ -984,7 +984,7 @@
         </sql>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="create-derby-test-users" depends="configure-db,resolve-testtime">
         <sql
             classpathref="lib.runtime.classpath"
@@ -999,7 +999,7 @@
         </sql>
     </target>
 
-    <!-- ================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="drop-db" depends="configure-db,resolve-runtime">
         <sql
             autocommit="true"
@@ -1013,7 +1013,7 @@
             </sql>
     </target>
 
-    <!-- ================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="drop-db-derby" depends="configure-db,resolve-runtime">
         <sql classpathref="lib.testtime.classpath"
             driver="${db.driver}"
@@ -1028,12 +1028,13 @@
         </sql>
     </target>
 
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- INTEGRATIONS WITH TOMCAT                                            -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- INTEGRATIONS WITH TOMCAT                                                                                    -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
 
+    <!-- =========================================================================================================== -->
 	<target name="tomcat-list" depends="install-ant-tomcat">
         <tomcat:list
             username="${tomcat.username}"
@@ -1041,6 +1042,7 @@
             url="${tomcat.url}"/>
     </target>
 
+    <!-- =========================================================================================================== -->
     <target name="tomcat-deploy" depends="install-ant-tomcat">
         <fail unless="tomcat.username"/>
         <fail unless="tomcat.password"/>
@@ -1057,13 +1059,13 @@
             path="${deploy.path}"/>
     </target>
 
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
-    <!-- PRIVATE TARGETS, SHOULD NOT NEED TO USE THESE DIRECTLY              -->
-    <!-- =================================================================== -->
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
+    <!-- PRIVATE TARGETS, SHOULD NOT NEED TO USE THESE DIRECTLY                                                      -->
+    <!-- =========================================================================================================== -->
+    <!-- =========================================================================================================== -->
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="download-ivy" unless="ivy.available">
         <mkdir dir="${lib.dir}"/>
         <mkdir dir="${lib.dir}/ivy"/>
@@ -1071,7 +1073,7 @@
         <get src="http://ivy.metro-six.com/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar" dest="${lib.dir}/ivy/ivy-${ivy.version}.jar" usetimestamp="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-ivy" unless="ivy.installed">
         <available file="${lib.dir}/ivy/ivy-${ivy.version}.jar" property="ivy.available"/>
         <antcall target="download-ivy"/>
@@ -1082,7 +1084,7 @@
         <property name="ivy.installed" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-ant-contrib" depends="resolve-buildtime" unless="ant-contrib.installed">
         <taskdef resource="net/sf/antcontrib/antcontrib.properties">
             <classpath>
@@ -1094,14 +1096,14 @@
         <property name="ant-contrib.installed" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-apache-derby" depends="install-ant-contrib, resolve-testtime" unless="apache-derby.installed">
         <get src="http://ivy.metro-six.com/db-derby/embedded/${derby.version}/derby-${derby.version}.jar" dest="${lib.testtime.dir}/derby-${derby.version}.jar" usetimestamp="true"/>
         <get src="http://ivy.metro-six.com/db-derby/embedded/${derby.version}/derbytools-${derby.version}.jar" dest="${lib.testtime.dir}/derbytools-${derby.version}.jar" usetimestamp="true"/>
         <property name="apache-derby.installed" value="true"/>
     </target>
 
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-ant-tomcat" depends="resolve-deploytime" unless="ant-tomcat.installed">
         <taskdef resource="org/apache/catalina/ant/antlib.xml" uri="antlib:org.apache.catalina.ant">
             <classpath>
@@ -1113,7 +1115,7 @@
         <property name="ant-tomcat.installed" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-yuicompressor" depends="resolve-buildtime" unless="yuicompressor.installed">
         <path id="yuicompressor.path">
             <fileset dir="${lib.buildtime.dir}">
@@ -1125,7 +1127,7 @@
         <property name="yuicompressor.installed" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-jsdoctoolkit" depends="resolve-buildtime" unless="jsdoctoolkit.installed">
         <unzip dest="${lib.buildtime.dir}">
             <fileset dir="${lib.buildtime.dir}">
@@ -1147,7 +1149,7 @@
         <property name="jsdoctoolkit.installed" value="true"/>
     </target>
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-findbugs" depends="resolve-testtime">
         <!-- unzips findbugs into the test directory. -->
         <unzip dest="${build.dir}/findbugs">
@@ -1173,7 +1175,7 @@
         </taskdef>        
     </target>    
     
-    <!-- =================================================================== -->
+    <!-- =========================================================================================================== -->
     <target name="install-cobertura" depends="resolve-testtime">
         <taskdef resource="tasks.properties">
             <classpath>
