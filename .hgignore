@@ -8,3 +8,4 @@ syntax: regexp
 ^build$
 ^stage$
 ^cobertura.ser$
+^derby.log$
