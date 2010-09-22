@@ -6,7 +6,7 @@ ideasaurus.model.NoteProxy = function() { // Implements IProxy
 	var createNoteService = new ideasaurus.service.Service(
 		'createNote',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{procedure : 'createNote'},
 		'arguments',
 		'json'
@@ -15,7 +15,7 @@ ideasaurus.model.NoteProxy = function() { // Implements IProxy
 	var retrieveNotesForCorkboardService = new ideasaurus.service.Service(
 		'retrieveNotesForCorkboard',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{procedure : 'retrieveNotesForCorkboard'},
 		'arguments',
 		'json'
@@ -24,7 +24,7 @@ ideasaurus.model.NoteProxy = function() { // Implements IProxy
 	var updateNoteService = new ideasaurus.service.Service(
 		'updateNote',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{procedure : 'updateNote'},
 		'arguments',
 		'json'
@@ -33,7 +33,7 @@ ideasaurus.model.NoteProxy = function() { // Implements IProxy
 	var deleteNoteService = new ideasaurus.service.Service(
 		'deleteNote',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{procedure : 'deleteNote'},
 		'arguments',
 		'json'

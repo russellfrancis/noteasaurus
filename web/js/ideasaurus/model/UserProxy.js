@@ -16,7 +16,7 @@ ideasaurus.model.UserProxy = function() {
 	var retrieveCurrentUserService = new ideasaurus.service.Service(
         'retrieveCurrentUser',
         'POST',
-        '/remote-procedure-call/json',
+        'remote-procedure-call/json',
         {procedure:'retrieveCurrentUser'},
         'arguments',
         'json');
@@ -24,7 +24,7 @@ ideasaurus.model.UserProxy = function() {
 	var loginService = new ideasaurus.service.Service(
         'login',
         'POST',
-        '/remote-procedure-call/json',
+        'remote-procedure-call/json',
         {procedure : 'login'},
         'arguments',
         'json' );
@@ -32,7 +32,7 @@ ideasaurus.model.UserProxy = function() {
     var logoutService = new ideasaurus.service.Service(
         'logout',
         'POST',
-        '/remote-procedure-call/json',
+        'remote-procedure-call/json',
         {procedure : 'logout'},
         'arguments',
         'json' );
@@ -40,7 +40,7 @@ ideasaurus.model.UserProxy = function() {
     var registerUserService = new ideasaurus.service.Service(
         'registerUser',
         'POST',
-        '/remote-procedure-call/json',
+        'remote-procedure-call/json',
         {procedure : 'registerUser'},
         'arguments',
         'json' );
@@ -48,7 +48,7 @@ ideasaurus.model.UserProxy = function() {
     var verifyUserService = new ideasaurus.service.Service(
         'verifyUser',
         'POST',
-        '/remote-procedure-call/json',
+        'remote-procedure-call/json',
         {procedure : 'verifyUser'},
         'arguments',
         'json' );
