@@ -9,7 +9,7 @@
     <!-- LISTENER DEFINITIONS                                                -->
     <!-- =================================================================== -->
     <listener>
-        <listener-class>com.metrosix.noteasaurus.web.ApplicationLifecycleListener</listener-class>
+        <listener-class>com.metrosix.noteasaurus.web.listener.ApplicationLifecycleListener</listener-class>
     </listener>
     <!-- =================================================================== -->
     <!-- FILTER DEFINITIONS                                                  -->
