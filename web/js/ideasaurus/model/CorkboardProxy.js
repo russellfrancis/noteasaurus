@@ -15,7 +15,7 @@ ideasaurus.model.CorkboardProxy = function() {
 	var retrieveCorkboardForUserService = new ideasaurus.service.Service(
 		'retrieveCorkboardsForCurrentUser',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{procedure : 'retrieveCorkboardsForCurrentUser'},
 		null,
 		'json'
@@ -24,7 +24,7 @@ ideasaurus.model.CorkboardProxy = function() {
 	var createCorkboardService = new ideasaurus.service.Service(
 		'createCorkboard',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{ procedure : 'createCorkboard' },
 		'arguments',
 		'json'
@@ -33,7 +33,7 @@ ideasaurus.model.CorkboardProxy = function() {
 	var updateCorkboardService = new ideasaurus.service.Service(
 		'updateCorkboard',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{ procedure : 'updateCorkboard' },
 		'arguments',
 		'json'
@@ -42,7 +42,7 @@ ideasaurus.model.CorkboardProxy = function() {
 	var deleteCorkboardService = new ideasaurus.service.Service(
 		'deleteCorkboard',
 		'POST',
-		'/remote-procedure-call/json',
+		'remote-procedure-call/json',
 		{ procedure : 'deleteCorkboard' },
 		'arguments',
 		'json'
