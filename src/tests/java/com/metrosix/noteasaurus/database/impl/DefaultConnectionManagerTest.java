@@ -97,7 +97,7 @@ public class DefaultConnectionManagerTest {
         replay(cm, conn);
 
         cm.setApplicationConfiguration(null);
-        assertEquals(conn, cm.getConnection("org.apache.derby.jdbc.EmbeddedDriver", "db.url", null, null));
+        assertEquals(conn, cm.getConnection("com.mysql.jdbc.Driver", "db.url", null, null));
 
         verify(cm, conn);
     }
