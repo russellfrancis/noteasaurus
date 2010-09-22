@@ -79,6 +79,7 @@ public class DefaultSchemaManager implements SchemaManager {
 
      * @param schemaXml The File under which the schema definition for the database is contained.
      */
+    @Override
     public void readSchema(File schemaXml)
             throws FileNotFoundException, ParserConfigurationException, SAXException, IOException
     {
@@ -110,6 +111,7 @@ public class DefaultSchemaManager implements SchemaManager {
 
      * @param ins The InputStream to read the database schema information from.
      */
+    @Override
     public void readSchema(InputStream ins) throws ParserConfigurationException, SAXException, IOException
     {
         if (ins == null) {
@@ -130,6 +132,7 @@ public class DefaultSchemaManager implements SchemaManager {
      * @return true if we successfully installed the database schema into the database, false if
      * there was a failure while trying to do this.
      */
+    @Override
     public boolean install()
     {
         try {
@@ -170,6 +173,7 @@ public class DefaultSchemaManager implements SchemaManager {
      * @return -1 if the schema could not be determined otherwise the version
      * of the schema the database is currently at.
      */
+    @Override
     public int getSchemaVersion(Connection connection) throws SQLException, ClassNotFoundException
     {
         int dbVersion = -1;

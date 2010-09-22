@@ -1,0 +1,9 @@
+<ivy-module version="2.0">
+	<info organisation="m6" module="noteasaurus-deploy"/>
+	<configurations defaultconfmapping="war->*;">
+        <conf name="war" visibility="private"/>
+	</configurations>
+	<dependencies>
+        <dependency org="m6" name="${project.name}" rev="${project.version}" conf="war"/>
+	</dependencies>
+</ivy-module>
