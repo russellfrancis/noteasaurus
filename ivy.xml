@@ -3,11 +3,12 @@
 	<!-- Author: Eric Kramer     -->
 	<!-- Author: Adam M. Dutko -->
 	<info organisation="m6" module="noteasaurus"/>
-	<configurations defaultconfmapping="buildtime->*;runtime->*;testtime->*;deploytime->*;">
-        <conf name="runtime"/>
-        <conf name="buildtime"/>
-        <conf name="testtime"/>
-        <conf name="deploytime"/>
+	<configurations defaultconfmapping="buildtime->*;runtime->*;testtime->*;deploytime->*;webarchive->*;">
+        <conf name="runtime" visibility="private"/>
+        <conf name="buildtime" visibility="private"/>
+        <conf name="deploytime" visibility="private"/>
+        <conf name="testtime" extends="runtime" visibility="private"/>
+        <conf name="webarchive" visibility="public"/>
 	</configurations>
 	<dependencies>
         <!-- These are libraries which should be bundled with the generated .war file -->

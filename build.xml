@@ -68,6 +68,7 @@
     <property name="lib.buildtime.dir" value="${lib.dir}/buildtime"/>
     <!-- The directory where deploy-time libraries are stored. -->
     <property name="lib.deploytime.dir" value="${lib.dir}/deploytime"/>
+    <property name="lib.webarchive.dir" value="${lib.dir}/webarchive"/>
     
     <path id="lib.runtime.classpath">
         <fileset dir="${lib.runtime.dir}" includes="*.jar"/>
@@ -189,9 +190,10 @@
     <target name="dist-all" depends="dist,generate-docs"/>
     
     <!-- =========================================================================================================== -->
-    <target name="dist" depends="stage-war">
+    <target name="dist" depends="stage-war,generate-version">
         <mkdir dir="${dist.dir}"/>
-        <war destfile="${dist.dir}/${project.name}-${project.version}.war"
+        <property name="ivy.new.revision" value="${project.version}"/>
+        <war destfile="${dist.dir}/${project.name}-${ivy.new.revision}.war"
              webxml="${stage.war.dir}/WEB-INF/web.xml">
             <fileset dir="${stage.war.dir}">
                 <include name="**/*"/>
@@ -474,8 +476,27 @@
     </target>
     
     <!-- =========================================================================================================== -->
-    <target name="resolve-all" depends="resolve-runtime,resolve-buildtime,resolve-testtime,resolve-deploytime" unless="resolve.no">
+    <target name="publish" depends="ivy-settings,resolve-all,dist">
+        <ivy:publish pubrevision="${ivy.new.revision}" overwrite="true" resolver="local">
+            <artifacts pattern="${dist.dir}/[artifact]-[revision].war"/>
+        </ivy:publish>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <target name="generate-version" depends="ivy-settings" if="release.build">
+        <fail unless="project.major.version"/>
+        <ivy:buildnumber organisation="m6" module="${project.name}" revision="${project.major.version}."/>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <target name="resolve-all" depends="resolve-webarchive,resolve-runtime,resolve-buildtime,resolve-testtime,resolve-deploytime" unless="resolve.no">
         <property name="resolve.no" value="true"/>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <target name="resolve-webarchive" depends="ivy-settings" unless="webarchive.resolved">
+        <ivy:retrieve pattern="${lib.webarchive.dir}/[artifact]-[revision].[ext]" conf="webarchive"/>
+        <property name="webarchive.resolved" value="true"/>
     </target>
     
     <!-- =========================================================================================================== -->
@@ -505,9 +526,7 @@
     <!-- =========================================================================================================== -->
     <target name="clean-all" depends="ivy-settings,clean">
         <ivy:cleancache/>
-        <parallel>
-            <delete dir="${lib.dir}"/>
-        </parallel>
+        <delete dir="${lib.dir}"/>
     </target>
     
     <!-- =========================================================================================================== -->
