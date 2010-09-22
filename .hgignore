@@ -3,6 +3,7 @@ syntax: regexp
 ^build.properties$
 ^catalog.xml$
 ^lib$
+^deploy/lib$
 ^nbproject$
 ^dist$
 ^build$
