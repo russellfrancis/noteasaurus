@@ -16,19 +16,19 @@
     <!-- =================================================================== -->
     <filter>
         <filter-name>HttpSessionFilter</filter-name>
-        <filter-class>com.metrosix.noteasaurus.web.HttpSessionFilter</filter-class>
+        <filter-class>com.metrosix.noteasaurus.web.filter.HttpSessionFilter</filter-class>
     </filter>
     <filter>
         <filter-name>SecurityPrincipalFilter</filter-name>
-        <filter-class>com.metrosix.noteasaurus.web.SecurityPrincipalFilter</filter-class>
+        <filter-class>com.metrosix.noteasaurus.web.filter.SecurityPrincipalFilter</filter-class>
     </filter>
     <filter>
         <filter-name>HibernateSessionFilter</filter-name>
-        <filter-class>com.metrosix.noteasaurus.web.HibernateSessionFilter</filter-class>
+        <filter-class>com.metrosix.noteasaurus.web.filter.HibernateSessionFilter</filter-class>
     </filter>
     <filter>
         <filter-name>SessionPersonFilter</filter-name>
-        <filter-class>com.metrosix.noteasaurus.web.SessionPersonFilter</filter-class>
+        <filter-class>com.metrosix.noteasaurus.web.filter.SessionPersonFilter</filter-class>
     </filter>
     <!-- =================================================================== -->
     <!-- FILTER MAPPING DEFINITIONS                                          -->
@@ -54,7 +54,7 @@
     <!-- =================================================================== -->
     <servlet>
         <servlet-name>remote-procedure-call-json</servlet-name>
-        <servlet-class>com.metrosix.noteasaurus.web.JSONRPCController</servlet-class>
+        <servlet-class>com.metrosix.noteasaurus.web.listener.controller.JSONRPCController</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <!-- =================================================================== -->
