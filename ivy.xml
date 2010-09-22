@@ -23,10 +23,7 @@
         <dependency org="velocity" name="velocity" rev="1.6.1" conf="runtime"/>
         <dependency org="picocontainer" name="picocontainer" rev="2.6" conf="runtime"/>
         <dependency org="json" name="json" rev="0.1" conf="runtime"/>
-        <!-- Database dependencies -->
-        <dependency org="db-derby" name="embedded" rev="10.4.2.0" conf="runtime"/>
-        <dependency org="mysql" name="mysql-connector" rev="5.1.7" conf="runtime"/>
-        <dependency org="postgresql" name="jdbc4" rev="8.3-604" conf="runtime"/>
+        <dependency org="mysql" name="mysql-connector" rev="5.1.13" conf="runtime"/>
             
         <!-- These are libraries needed for compilation -->
         <dependency org="j2ee" name="servlet-api" rev="2.4" conf="buildtime"/>
