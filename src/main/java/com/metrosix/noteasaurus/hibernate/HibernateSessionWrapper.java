@@ -24,7 +24,6 @@ public class HibernateSessionWrapper {
             log.trace(getClass().getSimpleName() + " triggered.");
         }
 
-        boolean mustCloseSession = false;
         try {
             delegate.execute();
             getPersistenceManager().getTransaction().commit();
@@ -33,7 +32,6 @@ public class HibernateSessionWrapper {
             }
         }
         catch (Exception e) {
-            mustCloseSession = isExceptionSessionCorrupting(e);
             try {
                 getPersistenceManager().getTransaction().rollback();
                 if (log.isInfoEnabled()) {
@@ -41,7 +39,6 @@ public class HibernateSessionWrapper {
                 }
             }
             catch (Exception ex) {
-                mustCloseSession = true;
                 if (log.isErrorEnabled()) {
                     log.error("Error rolling back database transaction: " +
                             ex.toString(), ex);
@@ -51,17 +48,15 @@ public class HibernateSessionWrapper {
             throw e;
         }
         finally {
-            if (mustCloseSession) {
-                try {
-                    getPersistenceManager().getSession().close();
-                    if (log.isInfoEnabled()) {
-                        log.info(getClass().getSimpleName() + " session closed due to previous failures.");
-                    }
+            try {
+                getPersistenceManager().getSession().close();
+                if (log.isInfoEnabled()) {
+                    log.info(getClass().getSimpleName() + " session closed due to previous failures.");
                 }
-                catch (Exception e) {
-                    if (log.isErrorEnabled()) {
-                        log.error("Unable to close the session: " + e.toString(), e);
-                    }
+            }
+            catch (Exception e) {
+                if (log.isErrorEnabled()) {
+                    log.error("Unable to close the session: " + e.toString(), e);
                 }
             }
         }
