@@ -20,15 +20,16 @@
     <target name="deploy" depends="clean,redist">
         <fail unless="deploy.dir"/>
         <fail unless="deploy.host"/>
-        <fail unless="deploy.remote_user"/>
+        <!--<fail unless="deploy.remote_user"/>-->
         <fail unless="deploy.context"/>
 
         <exec executable="rsync" failonerror="true">
             <arg value="-v"/>
             <arg value="-e"/>
-            <arg value="ssh -l ${deploy.remote_user}"/>
+            <!--<arg value="ssh -l ${deploy.remote_user}"/>-->
             <arg value="${output.file.war}"/>
-            <arg value="${deploy.host}:${deploy.dir}/${deploy.context}.war"/>
+            <!--<arg value="${deploy.host}:${deploy.dir}/${deploy.context}.war"/>-->
+            <arg value="${deploy.dir}/${deploy.context}.war"/>
         </exec>
     </target>
 
