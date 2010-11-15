@@ -19,7 +19,7 @@
     <!-- =========================================================================================================== -->
     <target name="deploy" depends="clean,redist">
         <fail unless="deploy.dir"/>
-        <fail unless="deploy.host"/>
+        <!--<fail unless="deploy.host"/>-->
         <!--<fail unless="deploy.remote_user"/>-->
         <fail unless="deploy.context"/>
 
